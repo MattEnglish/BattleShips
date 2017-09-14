@@ -4,9 +4,9 @@ using Battleships.Player.Interface;
 
 namespace BattleshipBot
 {
-  public class METest : IBattleshipsBot
-  {
-    
+    public class METest : IBattleshipsBot
+    {
+
         private Map currentMap = new Map();
         private Random random;
         private Targeter targeter;
@@ -14,9 +14,20 @@ namespace BattleshipBot
         private int lastColumn;
         private EnemyMap enemyMap = new EnemyMap();
         private EnemyShipRecord enemyShipRecord = new EnemyShipRecord();
+        private int matchNumber = 0;
 
-    public IEnumerable<IShipPosition> GetShipPositions()
-    {
+        public IEnumerable<IShipPosition> GetShipPositions()
+        {
+            matchNumber++;
+            if (matchNumber > 101)// reset after 101 matches
+            {
+                enemyShipRecord = new EnemyShipRecord();
+                enemyMap = new EnemyMap();
+                matchNumber = 0;
+            }
+            
+
+
             lastRow = 0;
             lastColumn = 0;
             enemyShipRecord.addMap(currentMap);
@@ -24,47 +35,47 @@ namespace BattleshipBot
             random = new Random();
             targeter = new TargeterLearn(currentMap, random, enemyShipRecord);
 
-            if (enemyMap==null)
+            if (enemyMap == null)
             {
                 enemyMap = new EnemyMap();
             }
             enemyMap.newBattle();
-            
-            
+
+
             ShipPositionerControl spc = new ShipPositionerControl(enemyMap);
-      return spc.GetShipPositions();
-    }
+            return spc.GetShipPositions();
+        }
 
-    private static ShipPosition GetShipPosition(char startRow, int startColumn, char endRow, int endColumn)
-    {
-            
-      return new ShipPosition(new GridSquare(startRow, startColumn), new GridSquare(endRow, endColumn));
-    }
+        private static ShipPosition GetShipPosition(char startRow, int startColumn, char endRow, int endColumn)
+        {
 
-    public IGridSquare SelectTarget()
-    {
-            int[] newTarget = targeter.GetNextTarget(lastRow,lastColumn);
+            return new ShipPosition(new GridSquare(startRow, startColumn), new GridSquare(endRow, endColumn));
+        }
+
+        public IGridSquare SelectTarget()
+        {
+            int[] newTarget = targeter.GetNextTarget(lastRow, lastColumn);
             lastRow = newTarget[0];
             lastColumn = newTarget[1];
-            return IGridConversions.intsToGrid(newTarget);    
-    }
+            return IGridConversions.intsToGrid(newTarget);
+        }
 
-    public void HandleShotResult(IGridSquare square, bool wasHit)
-    {
+        public void HandleShotResult(IGridSquare square, bool wasHit)
+        {
 
-            currentMap.shotFired(wasHit, lastRow, lastColumn);      
-    }
+            currentMap.shotFired(wasHit, lastRow, lastColumn);
+        }
 
-    public void HandleOpponentsShot(IGridSquare square)
-    {
+        public void HandleOpponentsShot(IGridSquare square)
+        {
             int x = IGridConversions.charToNum(square.Row) - 1;
             int y = square.Column - 1;
             Vector2 pos = new Vector2(x, y);
             enemyMap.enemyShot(false, pos);
-    }
+        }
 
-    public string Name => "Fearful Pugwash";
-  }
+        public string Name => "Fearful Pugwash"; //Includes Counter to 100 !!!!
+    }
 
     public class ShipPositionerControl
     {
@@ -77,12 +88,12 @@ namespace BattleshipBot
             ShipPositioner SP = new ShipPositioner();
             this.enemyMap = enemyMap;
         }
-        
+
 
         Random r = new Random();
         public List<IShipPosition> GetShipPositions()
         {
-            
+
 
             shipPositions = new List<IShipPosition> { };
 
@@ -135,8 +146,8 @@ namespace BattleshipBot
 
         private ShipPosition GetShipRandomWeightedPosition(int shipLength)
         {
-            
-            Coordinate c = SP.placeShipRandomlyToAvoidShots(shipLength, r,enemyMap);
+
+            Coordinate c = SP.placeShipRandomlyToAvoidShots(shipLength, r, enemyMap);
             return CoordinateToShipPosition(c, shipLength);
         }
 
@@ -156,25 +167,25 @@ namespace BattleshipBot
 
         private ShipPosition CoordinateToShipPosition(Coordinate coord, int shipLength)
         {
-            
-            char startRow = IGridConversions.numToChar(coord.GetRow()+1);
-            int startColumn = coord.GetColumn()+1;
+
+            char startRow = IGridConversions.numToChar(coord.GetRow() + 1);
+            int startColumn = coord.GetColumn() + 1;
             char endRow;
             int endColumn;
 
-            if(coord.GetOrientation()==0)
+            if (coord.GetOrientation() == 0)
             {
-                endRow = IGridConversions.numToChar(coord.GetRow() + shipLength -1 + 1);
-                endColumn = coord.GetColumn()+1;
+                endRow = IGridConversions.numToChar(coord.GetRow() + shipLength - 1 + 1);
+                endColumn = coord.GetColumn() + 1;
             }
             else
             {
                 endRow = IGridConversions.numToChar(coord.GetRow() + 1);
                 endColumn = coord.GetColumn() + shipLength - 1 + 1;
             }
-            return GetShipPosition(startRow, startColumn, endRow, endColumn);           
+            return GetShipPosition(startRow, startColumn, endRow, endColumn);
         }
-        
+
         private ShipPosition GetShipPosition(char startRow, int startColumn, char endRow, int endColumn)
         {
             return new ShipPosition(new GridSquare(startRow, startColumn), new GridSquare(endRow, endColumn));
@@ -196,9 +207,9 @@ namespace BattleshipBot
 
         public static GridSquare intsToGrid(int[] ints)
         {
-            char row = numToChar(ints[0]+1);
+            char row = numToChar(ints[0] + 1);
             int column = ints[1] + 1;
-            return  new GridSquare(row,column);
+            return new GridSquare(row, column);
         }
 
         public static int[] GridToInts(GridSquare grid)
@@ -207,8 +218,8 @@ namespace BattleshipBot
             int column = grid.Column - 1;
             return new int[2] { row, column };
         }
-        
+
     }
-    
+
 
 }

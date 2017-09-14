@@ -33,7 +33,7 @@ namespace ConsoleApplication1
             var oldMap = new Map();
             for (int i = 0; i < 100; i++)
             {
-                oldMap.shotFired(true, 4, 4);
+                oldMap.shotFired(true, 3, 4);
                 oldMap.shotFired(false, 5, 5);
                 eSR.addMap(oldMap);
             }

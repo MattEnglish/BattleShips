@@ -7,3 +7,13 @@ C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\BattleshipB
 C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\BattleshipBotTests\obj\Debug\BattleshipBotTests.csprojResolveAssemblyReference.cache
 C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\BattleshipBotTests\obj\Debug\BattleshipBotTests.dll
 C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\BattleshipBotTests\obj\Debug\BattleshipBotTests.pdb
+C:\Work\Training\BattleShips\BattleshipBotTests\bin\Debug\BattleshipBotTests.dll
+C:\Work\Training\BattleShips\BattleshipBotTests\bin\Debug\BattleshipBotTests.pdb
+C:\Work\Training\BattleShips\BattleshipBotTests\bin\Debug\BattleshipBot.dll
+C:\Work\Training\BattleShips\BattleshipBotTests\bin\Debug\Battleships.Player.Interface.dll
+C:\Work\Training\BattleShips\BattleshipBotTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Work\Training\BattleShips\BattleshipBotTests\bin\Debug\BattleshipBot.pdb
+C:\Work\Training\BattleShips\BattleshipBotTests\obj\Debug\BattleshipBotTests.csprojResolveAssemblyReference.cache
+C:\Work\Training\BattleShips\BattleshipBotTests\obj\Debug\BattleshipBotTests.csproj.CoreCompileInputs.cache
+C:\Work\Training\BattleShips\BattleshipBotTests\obj\Debug\BattleshipBotTests.dll
+C:\Work\Training\BattleShips\BattleshipBotTests\obj\Debug\BattleshipBotTests.pdb
