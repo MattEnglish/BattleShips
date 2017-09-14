@@ -12,7 +12,7 @@ namespace BattleshipBot
         public double[,] ShotBias { get; set; }
         const double edgeShotBias = 0.55;
         const double nextToEdgeBias = 0.25;
-        const double hitBias = 0.6;
+        const double hitBias = 0.30;
         const double missBias = -0.05;
 
 
@@ -31,12 +31,12 @@ namespace BattleshipBot
                 {
                     if(hitSpaces[row,col] == (int)hitSpace.hit)
                     {
-                        ShotBias[row, col] =+ hitBias;
+                        ShotBias[row, col] += hitBias;
                     }
 
                     if (hitSpaces[row, col] == (int)hitSpace.miss)
                     {
-                        ShotBias[row, col] =+ missBias;
+                        ShotBias[row, col] += missBias;
                     }
                 }
 

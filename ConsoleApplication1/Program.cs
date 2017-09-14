@@ -31,10 +31,15 @@ namespace ConsoleApplication1
             var eSR = new EnemyShipRecord();
             var tl = new TargeterLearn(map,r,eSR);
             var oldMap = new Map();
-            oldMap.shotFired(true, 4, 4);
-            oldMap.shotFired(false, 5, 5);
-            eSR.addMap(oldMap);
-            tl.findNewShip();
+            for (int i = 0; i < 100; i++)
+            {
+                oldMap.shotFired(true, 4, 4);
+                oldMap.shotFired(false, 5, 5);
+                eSR.addMap(oldMap);
+            }
+            
+            var test = tl.GetNextTarget(0, 0);
+
 
 
         }
