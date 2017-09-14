@@ -128,9 +128,16 @@ namespace BattleshipBot
             shipPositions.Add(GetShipOnEdge(2));
             */
 
+            /*
             shipPositions.Add(GetShipsToAvoidShotsPosition(5));
             shipPositions.Add(GetShipsToAvoidShotsPosition(4));
             shipPositions.Add(GetShipsToAvoidShotsPosition(3));
+            shipPositions.Add(GetShipsToAvoidShotsPosition(3));
+            shipPositions.Add(GetShipsToAvoidShotsPosition(2));
+            */
+            shipPositions.Add(GetShipOnEdge(5));
+            shipPositions.Add(GetShipOnEdge(4));
+            shipPositions.Add(GetShipRandomWeightedPosition(3));
             shipPositions.Add(GetShipsToAvoidShotsPosition(3));
             shipPositions.Add(GetShipsToAvoidShotsPosition(2));
 
