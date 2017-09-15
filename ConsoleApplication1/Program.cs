@@ -54,7 +54,7 @@ namespace ConsoleApplication1
             var ts = new TargeterSnipe(new Map(), new Random(), new EnemyShipRecord());
             ts.findNewShipM(5);
             */
-
+            /*
             var map = new Map();
             EnemyShipRecord ESR = new EnemyShipRecord();
             var clusterBomb = new TargeterClusterBomb(map, new Random(), ESR);
@@ -79,7 +79,25 @@ namespace ConsoleApplication1
 
             x = clusterBomb.GetNextTarget(x[0], x[1]);
             x = clusterBomb.GetNextTarget(x[0], x[1]);
+            */
+            /*
+            MoreUniformConfigs asdf = new MoreUniformConfigs();
+            var map = new Map();
+            var lSP = new LegalShipPositioner(map, 5);
+            map.shotFired(true,2,2);
+            
+            var x = asdf.GetSpaceValue(5, lSP.getLegalPositions());
+            */
 
+            METest test = new METest();
+            
+            var x = test.GetShipPositions();
+            x= test.GetShipPositions();
+            x= test.GetShipPositions();
+            x = test.GetShipPositions();
+            x = test.GetShipPositions();
+            x = test.GetShipPositions();
+            x = test.GetShipPositions();
         }
     }
     class hmmm

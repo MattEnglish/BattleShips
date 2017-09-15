@@ -50,10 +50,14 @@
     <Compile Include="LegalShipPositioner.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapOfEnemyShipsAllTime.cs" />
+    <Compile Include="MoreUniformConfigs.cs" />
     <Compile Include="MyBot.cs" />
     <Compile Include="OrientationFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShipPositioner.cs" />
+    <Compile Include="ShipPositionerControl.cs" />
+    <Compile Include="ShipPositionerDiversion.cs" />
+    <Compile Include="ShipPositionerSheild.cs" />
     <Compile Include="ShipTarget.cs" />
     <Compile Include="ShipTargeter.cs" />
     <Compile Include="SurroundingSpacescs.cs" />
@@ -61,6 +65,7 @@
     <Compile Include="TargeterClusterBomb.cs" />
     <Compile Include="TargeterLearn.cs" />
     <Compile Include="TargeterSemiSnipe.cs" />
+    <Compile Include="TargeterUniform.cs" />
     <Compile Include="UtilityFunctions.cs" />
     <Compile Include="Vector2.cs" />
   </ItemGroup>

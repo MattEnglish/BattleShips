@@ -6,9 +6,10 @@ namespace BattleshipBot
 {
     public class METest : IBattleshipsBot
     {
-        enum TargetStrategy {ConfigLearn, ClusterBomb, Config, SemiSnipe }
+        enum TargetStrategy {ConfigUniform,ConfigLearn, ClusterBomb }
+        public enum DefensiveStrategy {Diversion,Mixed,Edge,Avoid,Shield,SemiRandom}
 
-
+        private DefensiveStrategy defensiveStrategy;
         private TargetStrategy targetStrategy;
         private Map currentMap = new Map();
         private Random random;
@@ -23,12 +24,48 @@ namespace BattleshipBot
         public IEnumerable<IShipPosition> GetShipPositions()
         {
             matchNumber++;
-            if (matchNumber > 101)// reset after 101 matches
+            if (matchNumber > 0)
             {
-                enemyShipRecord = new EnemyShipRecord();
-                enemyMap = new EnemyMap();
-                matchNumber = 0;
+                defensiveStrategy = DefensiveStrategy.Shield;
             }
+            if (matchNumber > 10)
+            {
+                defensiveStrategy = DefensiveStrategy.Avoid;
+            }
+            if (matchNumber > 20)
+            {
+                defensiveStrategy = DefensiveStrategy.Mixed;
+            }          
+            
+            if (matchNumber > 40)
+            {
+                defensiveStrategy = DefensiveStrategy.Diversion;
+            }
+
+            if (matchNumber > 50)
+            {
+                defensiveStrategy = DefensiveStrategy.Mixed;
+            }
+
+
+            if (matchNumber > 70)
+            {
+                defensiveStrategy = DefensiveStrategy.Shield;
+            }
+            if (matchNumber > 80)
+            {
+                defensiveStrategy = DefensiveStrategy.Mixed;
+            }
+            if (matchNumber > 85)
+            {
+                defensiveStrategy = DefensiveStrategy.Mixed;
+            }
+            if (matchNumber > 95)
+            {
+                defensiveStrategy = DefensiveStrategy.Edge;
+            }
+            defensiveStrategy = DefensiveStrategy.SemiRandom;
+            
             if (!currentMap.WonMatch())
             {
                 lostStreak++;
@@ -39,23 +76,7 @@ namespace BattleshipBot
             }
             if (lostStreak >= 3)
             {
-                if(targetStrategy == TargetStrategy.ConfigLearn)
-                {
-                    targetStrategy = TargetStrategy.ClusterBomb;
-                }
-                
-                else if(targetStrategy == TargetStrategy.ClusterBomb)
-                {
-                    targetStrategy = TargetStrategy.Config;
-                }
-                else if(targetStrategy == TargetStrategy.Config)
-                {
-                    targetStrategy = TargetStrategy.SemiSnipe;
-                }
-                else if(targetStrategy == TargetStrategy.SemiSnipe)
-                {
-                    targetStrategy = TargetStrategy.ConfigLearn;
-                }
+                ChangeTargetStrategy();
             }
 
 
@@ -69,17 +90,21 @@ namespace BattleshipBot
             {
                 targeter = new TargeterClusterBomb(currentMap, random, enemyShipRecord);
             }
+            
             else if (targetStrategy == TargetStrategy.ConfigLearn)
             {
                 targeter = new TargeterLearn(currentMap, random, enemyShipRecord);
             }
+            
+            /*
             else if (targetStrategy == TargetStrategy.SemiSnipe)
             {
                 targeter = new TargeterSemiSnipe(currentMap, random, enemyShipRecord);
             }
+            */
             else
             {
-                targeter = new Targeter(currentMap, random);
+                targeter = new TargeterUniform(currentMap, random);
             }
 
             
@@ -95,7 +120,7 @@ namespace BattleshipBot
 
 
             ShipPositionerControl spc = new ShipPositionerControl(enemyMap);
-            return spc.GetShipPositions();
+            return spc.GetShipPositions(defensiveStrategy,random);
         }
 
         private static ShipPosition GetShipPosition(char startRow, int startColumn, char endRow, int endColumn)
@@ -126,135 +151,31 @@ namespace BattleshipBot
             enemyMap.enemyShot(false, pos);
         }
 
-        public string Name => "Test Pugwash"; //Includes Counter to 100 !!!!
+        public string Name => "Foolish Pugwash"; //Includes Counter to 100 !!!!
 
         
 
-
-    }
-
-    public class ShipPositionerControl
-    {
-        private ShipPositioner SP = new ShipPositioner();
-        private List<IShipPosition> shipPositions;
-        private EnemyMap enemyMap;
-
-        public ShipPositionerControl(EnemyMap enemyMap)
-        {
-            ShipPositioner SP = new ShipPositioner();
-            this.enemyMap = enemyMap;
-        }
-
-
-        Random r = new Random();
-        public List<IShipPosition> GetShipPositions()
+        private void ChangeTargetStrategy()
         {
 
-
-            shipPositions = new List<IShipPosition> { };
-
-            /*
-            shipPositions.Add(GetShipRandomPosition(5));
-            shipPositions.Add(GetShipRandomPosition(2));
-            shipPositions.Add(GetShipRandomPosition(4));
-            shipPositions.Add(GetShipRandomPosition(3));
-            shipPositions.Add(GetShipRandomPosition(3));  
-             */
-            /*
-           shipPositions.Add(GetShipRandomWeightedPosition(5));
-           shipPositions.Add(GetShipRandomWeightedPosition(2));
-           shipPositions.Add(GetShipRandomWeightedPosition(4));
-           shipPositions.Add(GetShipRandomWeightedPosition(3));
-           shipPositions.Add(GetShipRandomWeightedPosition(3));
-           */
-            /*
-            
-            shipPositions.Add(GetShipRandomWeightedPosition(5));
-            shipPositions.Add(GetShipRandomWeightedPosition(4));
-            shipPositions.Add(GetShipRandomWeightedPosition(3));
-            shipPositions.Add(GetShipRandomWeightedPosition(3));
-            shipPositions.Add(GetShipRandomWeightedPosition(2));
-            */
-
-            /*
-            shipPositions.Add(GetShipOnEdge(5));
-            shipPositions.Add(GetShipOnEdge(4));
-            shipPositions.Add(GetShipOnEdge(3));
-            shipPositions.Add(GetShipOnEdge(3));
-            shipPositions.Add(GetShipOnEdge(2));
-            */
-
-            /*
-            shipPositions.Add(GetShipsToAvoidShotsPosition(5));
-            shipPositions.Add(GetShipsToAvoidShotsPosition(4));
-            shipPositions.Add(GetShipsToAvoidShotsPosition(3));
-            shipPositions.Add(GetShipsToAvoidShotsPosition(3));
-            shipPositions.Add(GetShipsToAvoidShotsPosition(2));
-            */
-            shipPositions.Add(GetShipOnEdge(5));
-            shipPositions.Add(GetShipsToAvoidShotsPosition(4));
-            shipPositions.Add(GetShipRandomWeightedPosition(3));
-            shipPositions.Add(GetShipsToAvoidShotsPosition(3));
-            shipPositions.Add(GetShipsToAvoidShotsPosition(2));
-
-            return shipPositions;
-
-        }
-
-        private ShipPosition GetShipRandomPosition(int shipLength)
-        {
-            Coordinate c = SP.placeShipAtRandomPosition(shipLength, r);
-            return CoordinateToShipPosition(c, shipLength);
-        }
-
-        private ShipPosition GetShipRandomWeightedPosition(int shipLength)
-        {
-
-            Coordinate c = SP.placeShipRandomlyToAvoidShots(shipLength, r, enemyMap);
-            return CoordinateToShipPosition(c, shipLength);
-        }
-
-        private ShipPosition GetShipOnEdge(int shipLength)
-        {
-
-            Coordinate c = SP.placeShipRandomlyOnEdgesToAvoidShots(shipLength, r, enemyMap);
-            return CoordinateToShipPosition(c, shipLength);
-        }
-
-        private ShipPosition GetShipsToAvoidShotsPosition(int shipLength)
-        {
-
-            Coordinate c = SP.placeShipToAvoidShots(shipLength, enemyMap);
-            return CoordinateToShipPosition(c, shipLength);
-        }
-
-        private ShipPosition CoordinateToShipPosition(Coordinate coord, int shipLength)
-        {
-
-            char startRow = IGridConversions.numToChar(coord.GetRow() + 1);
-            int startColumn = coord.GetColumn() + 1;
-            char endRow;
-            int endColumn;
-
-            if (coord.GetOrientation() == 0)
+            if (Enum.GetNames(typeof(TargetStrategy)).Length == 1 + (int) targetStrategy)
             {
-                endRow = IGridConversions.numToChar(coord.GetRow() + shipLength - 1 + 1);
-                endColumn = coord.GetColumn() + 1;
+                targetStrategy = 0;
             }
+
             else
             {
-                endRow = IGridConversions.numToChar(coord.GetRow() + 1);
-                endColumn = coord.GetColumn() + shipLength - 1 + 1;
+                targetStrategy++;
             }
-            return GetShipPosition(startRow, startColumn, endRow, endColumn);
         }
 
-        private ShipPosition GetShipPosition(char startRow, int startColumn, char endRow, int endColumn)
-        {
-            return new ShipPosition(new GridSquare(startRow, startColumn), new GridSquare(endRow, endColumn));
-        }
 
     }
+    
+
+        
+
+    
     public class IGridConversions
     {
         public static Char numToChar(int num)

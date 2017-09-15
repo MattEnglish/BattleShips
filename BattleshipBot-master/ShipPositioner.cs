@@ -145,6 +145,34 @@ namespace BattleshipBot
             return place;
 
         }
+        
+        public Coordinate placeShipRandomlyUniformly(int shipLength, Random r)
+        {
+            LegalShipPositioner LSP = new LegalShipPositioner(map, shipLength);
+            var legalPos = LSP.getLegalPositions();
+            var uniformConfigs = new MoreUniformConfigs();
+            var spaceValues = uniformConfigs.GetInitalUniformCoordsValueKinda(shipLength);
+
+            for (int orientation = 0; orientation < 2; orientation++)
+            {
+                for (int row = 0; row < 10; row++)
+                {
+                    for (int column = 0; column < 10; column++)
+                    {
+                        if (!legalPos[row, column, orientation])
+                        {
+                            spaceValues[row,column,orientation] = 0;
+                        }
+                    }
+                }
+            }
+        
+            var c = UtilityFunctions.GetWeightedRandomCoordinate(spaceValues,r);
+            map.addShip(c,shipLength);
+            return c;
+
+        }
+        
 
         public Coordinate placeShipRandomlyOnEdgesToAvoidShots(int shipLength, Random r, EnemyMap enemyMap)
         {

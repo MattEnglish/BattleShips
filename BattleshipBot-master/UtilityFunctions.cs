@@ -8,6 +8,82 @@ namespace BattleshipBot
 {
     public class UtilityFunctions
     {
+        public static Ship reflectShipRows(Ship s)
+        {
+            Coordinate coord;
+            if (s.coordinate.GetOrientation() == 0)
+            {
+                coord = new Coordinate(9-s.coordinate.GetRow()+1-s.shipLength, s.coordinate.GetColumn(), 0);
+            }
+            else
+            {
+                coord = new Coordinate(9 - s.coordinate.GetRow(), s.coordinate.GetColumn(), 1);
+            }
+            return new Ship(coord,s.shipLength);
+        }
+
+        public static Ship reflectShipCols(Ship s)
+        {
+            Coordinate coord;
+            if (s.coordinate.GetOrientation() == 0)
+            {
+                coord = new Coordinate( s.coordinate.GetRow() , 9 - s.coordinate.GetColumn(), 0);
+            }
+            else
+            {
+                coord = new Coordinate( s.coordinate.GetRow(), 9 - s.coordinate.GetColumn() + 1 - s.shipLength, 1);
+            }
+            return new Ship(coord, s.shipLength);
+        }
+
+        public static Ship reflectShipXY(Ship s)
+        {
+            Coordinate coord;
+            if (s.coordinate.GetOrientation() == 0)
+            {
+                coord = new Coordinate(s.coordinate.GetColumn(), s.coordinate.GetRow(), 1);
+            }
+            else
+            {
+                coord = new Coordinate(s.coordinate.GetColumn(), s.coordinate.GetRow(), 0);
+            }
+            return new Ship(coord, s.shipLength);
+        }
+
+        public static Coordinate GetWeightedRandomCoordinate(double[,,] array, Random r)
+        {
+            double trueValueCount = 0.0d;
+            foreach (double d in array)
+            {
+                trueValueCount = trueValueCount + d;
+            }
+            if (trueValueCount == 0.0d)
+            {
+                throw new Exception();
+            }
+            double trueValueChosen = trueValueCount * r.NextDouble();
+
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    for (int k = 0; k < array.GetLength(2); k++)
+                    {
+                        trueValueChosen = trueValueChosen - array[i, j, k];
+                        if (trueValueChosen <= 0)
+                        {
+                            return new Coordinate(i, j, k);
+                        }
+                    }
+
+                }
+            }
+            throw new Exception();
+        }
+
+
+
+
         public static Coordinate GetInverseWeightedRandomCoordinate(double[,,] array, Random r)
         {
             double[,,] inverseArray = new Double[array.GetLength(0), array.GetLength(1), array.GetLength(2)];
