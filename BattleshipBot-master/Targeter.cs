@@ -19,7 +19,7 @@ namespace BattleshipBot
         
         
         ShipTargeter shipTargeter;
-        ShipTarget shipTarget = null;      
+        protected ShipTarget shipTarget = null;      
          
         public Targeter(Map map, Random random)
         {
@@ -32,7 +32,7 @@ namespace BattleshipBot
 
         
 
-        public int[] GetNextTarget(int theLastRowShot,int theLastColumnShot)
+        public virtual int[] GetNextTarget(int theLastRowShot,int theLastColumnShot)
         {
             lastShotRow = theLastRowShot;
             lastShotColumn = theLastColumnShot;

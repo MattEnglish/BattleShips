@@ -177,9 +177,28 @@ namespace BattleshipBot
                 return 3;
             }
             return 2;
+
         }
 
-
+        public bool WonMatch()
+        {
+            int numberOfHits = 0;
+            for (int row = 0; row < 10; row++)
+            {
+                for (int col = 0; col < 10; col++)
+                {
+                    if (hitSpaces[row, col] == (int)hitSpace.hit)
+                    {
+                        numberOfHits++;
+                    }
+                }
+            }
+            if (numberOfHits >= 17)
+            {
+                return true;
+            }
+            return false;
+        }
 
     }
         public class Ship:IComparable<Ship>
@@ -198,7 +217,7 @@ namespace BattleshipBot
             return shipLength.CompareTo(s.shipLength);
         }
 
-     
+        
 
     }
 }

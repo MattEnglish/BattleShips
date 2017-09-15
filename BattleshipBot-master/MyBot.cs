@@ -6,7 +6,10 @@ namespace BattleshipBot
 {
     public class METest : IBattleshipsBot
     {
+        enum TargetStrategy {ConfigLearn, ClusterBomb, Config, SemiSnipe }
 
+
+        private TargetStrategy targetStrategy;
         private Map currentMap = new Map();
         private Random random;
         private Targeter targeter;
@@ -15,6 +18,7 @@ namespace BattleshipBot
         private EnemyMap enemyMap = new EnemyMap();
         private EnemyShipRecord enemyShipRecord = new EnemyShipRecord();
         private int matchNumber = 0;
+        private int lostStreak = -1;
 
         public IEnumerable<IShipPosition> GetShipPositions()
         {
@@ -25,15 +29,63 @@ namespace BattleshipBot
                 enemyMap = new EnemyMap();
                 matchNumber = 0;
             }
-            
+            if (!currentMap.WonMatch())
+            {
+                lostStreak++;
+            }
+            else
+            {
+                lostStreak = 0;
+            }
+            if (lostStreak >= 3)
+            {
+                if(targetStrategy == TargetStrategy.ConfigLearn)
+                {
+                    targetStrategy = TargetStrategy.ClusterBomb;
+                }
+                
+                else if(targetStrategy == TargetStrategy.ClusterBomb)
+                {
+                    targetStrategy = TargetStrategy.Config;
+                }
+                else if(targetStrategy == TargetStrategy.Config)
+                {
+                    targetStrategy = TargetStrategy.SemiSnipe;
+                }
+                else if(targetStrategy == TargetStrategy.SemiSnipe)
+                {
+                    targetStrategy = TargetStrategy.ConfigLearn;
+                }
+            }
+
 
 
             lastRow = 0;
             lastColumn = 0;
             enemyShipRecord.addMap(currentMap);
             currentMap = new Map();
+
+            if (targetStrategy == TargetStrategy.ClusterBomb)
+            {
+                targeter = new TargeterClusterBomb(currentMap, random, enemyShipRecord);
+            }
+            else if (targetStrategy == TargetStrategy.ConfigLearn)
+            {
+                targeter = new TargeterLearn(currentMap, random, enemyShipRecord);
+            }
+            else if (targetStrategy == TargetStrategy.SemiSnipe)
+            {
+                targeter = new TargeterSemiSnipe(currentMap, random, enemyShipRecord);
+            }
+            else
+            {
+                targeter = new Targeter(currentMap, random);
+            }
+
+            
+
             random = new Random();
-            targeter = new TargeterLearn(currentMap, random, enemyShipRecord);
+            
 
             if (enemyMap == null)
             {
@@ -74,7 +126,11 @@ namespace BattleshipBot
             enemyMap.enemyShot(false, pos);
         }
 
-        public string Name => "Fearful Pugwash"; //Includes Counter to 100 !!!!
+        public string Name => "Test Pugwash"; //Includes Counter to 100 !!!!
+
+        
+
+
     }
 
     public class ShipPositionerControl
@@ -136,7 +192,7 @@ namespace BattleshipBot
             shipPositions.Add(GetShipsToAvoidShotsPosition(2));
             */
             shipPositions.Add(GetShipOnEdge(5));
-            shipPositions.Add(GetShipOnEdge(4));
+            shipPositions.Add(GetShipsToAvoidShotsPosition(4));
             shipPositions.Add(GetShipRandomWeightedPosition(3));
             shipPositions.Add(GetShipsToAvoidShotsPosition(3));
             shipPositions.Add(GetShipsToAvoidShotsPosition(2));
@@ -227,6 +283,8 @@ namespace BattleshipBot
         }
 
     }
+
+   
 
 
 }

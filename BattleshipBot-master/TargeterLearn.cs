@@ -8,7 +8,7 @@ namespace BattleshipBot
 {
     public class TargeterLearn:Targeter
     {
-        private EnemyShipRecord enemyShipRecord;
+        protected EnemyShipRecord enemyShipRecord;
 
 
         public TargeterLearn(Map map, Random random, EnemyShipRecord enemyShipRecord):base(map,random)
@@ -33,7 +33,8 @@ namespace BattleshipBot
                 {
                     if (configCountWithShotBias[row, column] != 0)
                     {
-                        configCountWithShotBias[row, column] += enemyShipRecord.ShotBias[row, column];
+                        configCountWithShotBias[row, column] += enemyShipRecord.HitBias[row, column];
+                        configCountWithShotBias[row, column] += enemyShipRecord.edgeBias[row, column];
                     }
                 }
             }

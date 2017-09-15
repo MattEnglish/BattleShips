@@ -58,7 +58,9 @@
     <Compile Include="ShipTargeter.cs" />
     <Compile Include="SurroundingSpacescs.cs" />
     <Compile Include="Targeter.cs" />
+    <Compile Include="TargeterClusterBomb.cs" />
     <Compile Include="TargeterLearn.cs" />
+    <Compile Include="TargeterSemiSnipe.cs" />
     <Compile Include="UtilityFunctions.cs" />
     <Compile Include="Vector2.cs" />
   </ItemGroup>

@@ -10,20 +10,23 @@ namespace BattleshipBot
     public class EnemyShipRecord
     {
         
-        public double[,] ShotBias { get; set; }
+        //public double[,] ShotBias { get; set; }
+        public double[,] HitBias { get; set; }
+        public double[,] edgeBias { get; set; }
         const double edgeShotBias = 0.55;
         const double nextToEdgeBias = 0.25;
         const double hitBias = 0.30;
-        const double missBias = -0.05;
+        const double missBias = -0.1;
         private const double symmetryshotBias = 0.05;
         private const double aSymmetryshotBias = 0.05;
-        private const double symmetrymissBias = -0.01;
-        private const double aSymmetryMissBias = -0.01;
+        private const double symmetrymissBias = -0.015;
+        private const double aSymmetryMissBias = -0.015;
 
         public EnemyShipRecord()
         {
-            ShotBias = initalShotBiasSetup();
-            
+            edgeBias = initalShotBiasSetup();
+            HitBias = new double[10, 10];
+            edgeBias = new double[10, 10];
         }
 
         public double[,] GetInitalShotEdgeBias()
@@ -38,13 +41,17 @@ namespace BattleshipBot
             {
                 for (int col = 0; col < 10; col++)
                 {
-                    increaseShotBiasSymmetry(row,col,hitSpaces[row,col]);
+                    //increaseShotBiasSymmetry(row,col,hitSpaces[row,col]);
                     increaseShotBiasASymmetry(row,col, hitSpaces[row, col]);
+                    increaseShotBiasASymmetry(row, col, hitSpaces[row, col]);
+                    increaseShotBiasASymmetry(row, col, hitSpaces[row, col]);
+                    increaseShotBiasASymmetry(row, col, hitSpaces[row, col]);
                 }
 
             }
         }
 
+        /*
         private void increaseShotBiasSymmetry(int row, int col, int hit)
         {
             
@@ -72,19 +79,19 @@ namespace BattleshipBot
                 ShotBias[9 - col, 9 - row] += symmetrymissBias;
             }
         }
-
+        */
         
 
         private void increaseShotBiasASymmetry(int row, int col, int hit )
         {
             if (hit == (int)hitSpace.hit)
             {
-                ShotBias[row, col] += aSymmetryshotBias;
+                HitBias[row, col] += aSymmetryshotBias;
             }
 
             if (hit == (int)hitSpace.miss)
             {
-                ShotBias[row, col] += aSymmetryMissBias;
+                HitBias[row, col] += aSymmetryMissBias;
             }
         }
      

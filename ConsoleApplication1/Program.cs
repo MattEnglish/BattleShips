@@ -26,6 +26,7 @@ namespace ConsoleApplication1
     {
         public static void Run()
         {
+            /*
             var map = new Map();
             var r = new Random();
             var eSR = new EnemyShipRecord();
@@ -39,8 +40,45 @@ namespace ConsoleApplication1
             }
             
             var test = tl.GetNextTarget(0, 0);
+            */
+            /*
+            METest test = new METest();
+            test.GetShipPositions();
+            test.GetShipPositions();
+            test.GetShipPositions();
+            test.GetShipPositions();
+            test.GetShipPositions();
+            test.GetShipPositions();
+            test.GetShipPositions();
 
+            var ts = new TargeterSnipe(new Map(), new Random(), new EnemyShipRecord());
+            ts.findNewShipM(5);
+            */
 
+            var map = new Map();
+            EnemyShipRecord ESR = new EnemyShipRecord();
+            var clusterBomb = new TargeterClusterBomb(map, new Random(), ESR);
+            var x = clusterBomb.GetNextTarget(0,0);
+            map.shotFired(true, x[0], x[1]);
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
+            map.shotFired(true, x[0], x[1]);
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
+            map.shotFired(false, x[0], x[1]);
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
+            map.shotFired(false, x[0], x[1]);
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
+
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
+            x = clusterBomb.GetNextTarget(x[0], x[1]);
 
         }
     }
