@@ -20,7 +20,7 @@ namespace BattleshipBotTest
         public void TestGetShips()
         {
             int counter = 0;
-            METest ME = new METest();
+            Pugwash ME = new Pugwash();
             foreach (IShipPosition sp in ME.GetShipPositions())
             {
                 counter++;
@@ -48,7 +48,7 @@ namespace BattleshipBotTest
         public void TestShipsAreViable()
         {
             int counter = 0;
-            METest ME = new METest();
+            Pugwash ME = new Pugwash();
             foreach (IShipPosition sp in ME.GetShipPositions())
             {
                 counter++;

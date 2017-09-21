@@ -1,8 +1,6 @@
 C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
 C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
 C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
-C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\ConsoleApplication1\bin\Debug\BattleshipBot.dll
-C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\ConsoleApplication1\bin\Debug\Battleships.Player.Interface.dll
 C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\ConsoleApplication1\bin\Debug\BattleshipBot.pdb
 C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
 C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
@@ -17,3 +15,5 @@ C:\Work\Training\BattleShips\ConsoleApplication1\obj\Debug\ConsoleApplication1.c
 C:\Work\Training\BattleShips\ConsoleApplication1\obj\Debug\ConsoleApplication1.csproj.CoreCompileInputs.cache
 C:\Work\Training\BattleShips\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
 C:\Work\Training\BattleShips\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\ConsoleApplication1\bin\Debug\BattleshipBot.dll
+C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\ConsoleApplication1\bin\Debug\Battleships.Player.Interface.dll

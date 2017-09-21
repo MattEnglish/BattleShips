@@ -8,6 +8,7 @@ using BattleshipBot;
 using Battleships.Player.Interface;
 
 
+
 namespace ConsoleApplication1
 {
     class Program
@@ -17,11 +18,53 @@ namespace ConsoleApplication1
             //findnewShipDistribution.Run();
             //findnewShipDistribution.Run2();
             // hmmm.WeightedRandomShipPositonTest();
-            deleteMe.Run();
+            reallyDeleteMeLol.Run();
         }
 
     }
 
+    class reallyDeleteMeLol
+    {
+        public static void Run()
+        {/*
+            Pugwash pugwash = new Pugwash();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.HandleOpponentsShot(new GridSquare('A', 1));
+            pugwash.HandleShotResult(pugwash.SelectTarget(),true);
+            pugwash.HandleShotResult(pugwash.SelectTarget(), true);
+            pugwash.HandleShotResult(pugwash.SelectTarget(), true);
+            pugwash.HandleShotResult(pugwash.SelectTarget(), true);
+            pugwash.HandleShotResult(pugwash.SelectTarget(), true);
+            pugwash.HandleShotResult(pugwash.SelectTarget(), false);
+            var x = pugwash.SelectTarget();
+            var y = pugwash.SelectTarget();
+            */
+            var cc = new CoordinateCovariance();
+            var ships = new List<Ship>();
+            var ships2 = new List<Ship>();
+            ships.Add(new Ship(new Coordinate(3, 3, 0), 5));
+            ships.Add(new Ship(new Coordinate(3, 5, 0), 4));
+            ships.Add(new Ship(new Coordinate(3, 5, 1), 3));
+            ships2.Add(new Ship(new Coordinate(3, 5, 0), 4));
+            ships2.Add(new Ship(new Coordinate(0, 0, 0), 3));
+            ships2.Add(new Ship(new Coordinate(6, 6, 0), 5));
+            cc.AddNewConfig(ships);
+            for (int i = 0; i < 100; i++)
+            {
+                cc.AddNewConfig(ships);
+            }
+            cc.AddNewConfig(ships);
+            cc.AddNewConfig(ships2);
+            var x = cc.placeholder(ships, 3);
+            ships.Add(new Ship(new Coordinate(3, 3, 0), 3));
+            cc.AddNewConfig(ships);
+            var y = cc.placeholder(ships, 3);
+            var z = cc.placeholder(ships, 4);
+        }
+    }
     class deleteMe
     {
         public static void Run()
@@ -80,16 +123,26 @@ namespace ConsoleApplication1
             x = clusterBomb.GetNextTarget(x[0], x[1]);
             x = clusterBomb.GetNextTarget(x[0], x[1]);
             */
-            /*
+            
+            
             MoreUniformConfigs asdf = new MoreUniformConfigs();
             var map = new Map();
             var lSP = new LegalShipPositioner(map, 5);
-            map.shotFired(true,2,2);
+            map.addShip(new Coordinate(2, 2, 0), 5);
+            map.addShip(new Coordinate(3, 4, 0), 4);
+            map.addShip(new Coordinate(9, 4, 1), 3);
             
-            var x = asdf.GetSpaceValue(5, lSP.getLegalPositions());
-            */
+            var x = asdf.GetInitalUniformCoordsValueKinda(3,map);
+            var y = asdf.GetSpaceValueSumofCoordValues(x, 3);
 
-            METest test = new METest();
+
+            for (int i = 0; i < 101; i++)
+            {
+              //  y = asdf.GetSpaceValueSumofCoordValues(z, 5);
+               // z = asdf.GetMoreUniformCoordsValues(5, y);
+            }
+            /*
+            Pugwash test = new Pugwash();
             
             var x = test.GetShipPositions();
             x= test.GetShipPositions();
@@ -98,13 +151,16 @@ namespace ConsoleApplication1
             x = test.GetShipPositions();
             x = test.GetShipPositions();
             x = test.GetShipPositions();
+            */
+
+
         }
     }
     class hmmm
     {
         public static void Run()
         {
-            METest bot = new METest();
+            Pugwash bot = new Pugwash();
             bot.GetShipPositions();
             for (int i = 0; i < 10000; i++)
             {

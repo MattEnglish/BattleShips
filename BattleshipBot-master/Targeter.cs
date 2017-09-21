@@ -41,8 +41,7 @@ namespace BattleshipBot
             {
                 if(shipTarget.isDestroyed())
                 {
-                    Ship s = shipTarget.GetCurrentShip();
-                    map.addShip(s.coordinate, s.shipLength);
+                    Ship s = shipTarget.GetCurrentShip();                    
                     shipTarget = null;
                     return findNewShip();
                 }

@@ -4,123 +4,59 @@ using Battleships.Player.Interface;
 
 namespace BattleshipBot
 {
-    public class METest : IBattleshipsBot
+    public class NewGameEventArgs
     {
-        enum TargetStrategy {ConfigUniform,ConfigLearn, ClusterBomb }
-        public enum DefensiveStrategy {Diversion,Mixed,Edge,Avoid,Shield,SemiRandom}
+        public Map OldMap;
+        public Map NewMap;
+        public bool WonLastBattle;
+        public int numberOfEnemyShots;
+        public int numberOfThisShots;
 
-        private DefensiveStrategy defensiveStrategy;
-        private TargetStrategy targetStrategy;
+        public NewGameEventArgs(Map oldMap, Map newMap, bool wonLastBattle)
+        {
+            OldMap = oldMap;
+            NewMap = newMap;
+            WonLastBattle = wonLastBattle;
+        }
+
+    }
+
+    //To Do add Constructor, this first repair Targeting lol, NewGame Subscribe!!!.
+    public class Pugwash : IBattleshipsBot
+    {
+        
+        
         private Map currentMap = new Map();
-        private Random random;
-        private Targeter targeter;
+        private Random random = new Random();
+        private TargeterController targeterC;
+        private DefensiveController defensiveC = new DefensiveController();
         private int lastRow;
         private int lastColumn;
         private EnemyMap enemyMap = new EnemyMap();
         private EnemyShipRecord enemyShipRecord = new EnemyShipRecord();
-        private int matchNumber = 0;
-        private int lostStreak = -1;
+        
+
+       public Pugwash()
+        {
+            targeterC = new TargeterController(this,random, enemyShipRecord);
+            enemyMap = new EnemyMap();
+        }
+
+        public delegate void NewGameHandler(NewGameEventArgs info);
+
+        public event NewGameHandler newGame;
 
         public IEnumerable<IShipPosition> GetShipPositions()
-        {
-            matchNumber++;
-            if (matchNumber > 0)
-            {
-                defensiveStrategy = DefensiveStrategy.Shield;
-            }
-            if (matchNumber > 10)
-            {
-                defensiveStrategy = DefensiveStrategy.Avoid;
-            }
-            if (matchNumber > 20)
-            {
-                defensiveStrategy = DefensiveStrategy.Mixed;
-            }          
-            
-            if (matchNumber > 40)
-            {
-                defensiveStrategy = DefensiveStrategy.Diversion;
-            }
-
-            if (matchNumber > 50)
-            {
-                defensiveStrategy = DefensiveStrategy.Mixed;
-            }
-
-
-            if (matchNumber > 70)
-            {
-                defensiveStrategy = DefensiveStrategy.Shield;
-            }
-            if (matchNumber > 80)
-            {
-                defensiveStrategy = DefensiveStrategy.Mixed;
-            }
-            if (matchNumber > 85)
-            {
-                defensiveStrategy = DefensiveStrategy.Mixed;
-            }
-            if (matchNumber > 95)
-            {
-                defensiveStrategy = DefensiveStrategy.Edge;
-            }
-            defensiveStrategy = DefensiveStrategy.SemiRandom;
-            
-            if (!currentMap.WonMatch())
-            {
-                lostStreak++;
-            }
-            else
-            {
-                lostStreak = 0;
-            }
-            if (lostStreak >= 3)
-            {
-                ChangeTargetStrategy();
-            }
-
-
-
-            lastRow = 0;
-            lastColumn = 0;
+        {           
+            Map newMap = new Map();
             enemyShipRecord.addMap(currentMap);
-            currentMap = new Map();
-
-            if (targetStrategy == TargetStrategy.ClusterBomb)
-            {
-                targeter = new TargeterClusterBomb(currentMap, random, enemyShipRecord);
-            }
-            
-            else if (targetStrategy == TargetStrategy.ConfigLearn)
-            {
-                targeter = new TargeterLearn(currentMap, random, enemyShipRecord);
-            }
-            
-            /*
-            else if (targetStrategy == TargetStrategy.SemiSnipe)
-            {
-                targeter = new TargeterSemiSnipe(currentMap, random, enemyShipRecord);
-            }
-            */
-            else
-            {
-                targeter = new TargeterUniform(currentMap, random);
-            }
-
-            
-
-            random = new Random();
-            
-
-            if (enemyMap == null)
-            {
-                enemyMap = new EnemyMap();
-            }
+            newGame(new NewGameEventArgs(currentMap,newMap,currentMap.WonMatch()));
+            currentMap = newMap;
+            lastRow = 0;
+            lastColumn = 0;                                
             enemyMap.newBattle();
-
-
             ShipPositionerControl spc = new ShipPositionerControl(enemyMap);
-            return spc.GetShipPositions(defensiveStrategy,random);
+            return spc.GetShipPositions(defensiveC.GetDefensiveStrategy(), random);
         }
 
         private static ShipPosition GetShipPosition(char startRow, int startColumn, char endRow, int endColumn)
@@ -131,7 +67,7 @@ namespace BattleshipBot
 
         public IGridSquare SelectTarget()
         {
-            int[] newTarget = targeter.GetNextTarget(lastRow, lastColumn);
+            int[] newTarget = targeterC.GetNextTarget(lastRow, lastColumn);
             lastRow = newTarget[0];
             lastColumn = newTarget[1];
             return IGridConversions.intsToGrid(newTarget);
@@ -139,8 +75,10 @@ namespace BattleshipBot
 
         public void HandleShotResult(IGridSquare square, bool wasHit)
         {
-
-            currentMap.shotFired(wasHit, lastRow, lastColumn);
+            var row = IGridConversions.charToNum(square.Row) -1;
+            var col = square.Column - 1;
+            
+            currentMap.shotFired(wasHit, row, col);
         }
 
         public void HandleOpponentsShot(IGridSquare square)
@@ -151,23 +89,11 @@ namespace BattleshipBot
             enemyMap.enemyShot(false, pos);
         }
 
-        public string Name => "Foolish Pugwash"; //Includes Counter to 100 !!!!
+        public string Name => "Needs To be Refactored Pugwash"; //Includes Counter to 100 !!!!
 
         
 
-        private void ChangeTargetStrategy()
-        {
-
-            if (Enum.GetNames(typeof(TargetStrategy)).Length == 1 + (int) targetStrategy)
-            {
-                targetStrategy = 0;
-            }
-
-            else
-            {
-                targetStrategy++;
-            }
-        }
+        
 
 
     }

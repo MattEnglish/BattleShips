@@ -151,7 +151,7 @@ namespace BattleshipBot
             LegalShipPositioner LSP = new LegalShipPositioner(map, shipLength);
             var legalPos = LSP.getLegalPositions();
             var uniformConfigs = new MoreUniformConfigs();
-            var spaceValues = uniformConfigs.GetInitalUniformCoordsValueKinda(shipLength);
+            var spaceValues = uniformConfigs.GetInitalUniformCoordsValueKinda(shipLength,map);
 
             for (int orientation = 0; orientation < 2; orientation++)
             {

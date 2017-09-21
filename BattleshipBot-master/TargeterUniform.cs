@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleshipBot
 {
+    /*
     public class TargeterUniform : Targeter
     {
         public TargeterUniform(Map map, Random random) : base(map, random)
@@ -21,7 +22,8 @@ namespace BattleshipBot
             LegalShipPositioner LSP = new LegalShipPositioner(map, shipLength);
      
             var uniformConfigs = new MoreUniformConfigs();
-            var spaceValues = uniformConfigs.GetSpaceValue(shipLength,LSP.getLegalPositions());
+            var coordValuesAsThoughNoShipsAreThere = uniformConfigs.GetInitalUniformCoordsValueKinda(shipLength, new Map());//WARNING LOOK INTO THIS!!!!!!!!
+            var spaceValues = uniformConfigs.GetSpaceValueSumofCoordValues(,shipLength);
 
             int[] target = new int[2] {0, 0};
             double largestValue = 0;
@@ -41,4 +43,5 @@ namespace BattleshipBot
             return target;
         }
     }
+    */
 }

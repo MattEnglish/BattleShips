@@ -33,8 +33,20 @@ namespace BattleshipBot
             i = row;
             j = column;
             k = orientation;
-
         }
+
+
+
+         public static bool operator ==(Coordinate c1, Coordinate c2)
+        {
+            return (c1.GetRow()==c2.GetRow() && c1.GetColumn() == c2.GetColumn() && c1.GetOrientation() == c2.GetOrientation());
+        }
+
+        public static bool operator !=(Coordinate c1, Coordinate c2)
+        {
+            return c1 != c2;
+        }
+    
 
     }
 }

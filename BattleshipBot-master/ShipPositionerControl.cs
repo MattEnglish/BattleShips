@@ -23,34 +23,34 @@ namespace BattleshipBot
 
 
         Random r = new Random();
-        public IEnumerable<IShipPosition> GetShipPositions(METest.DefensiveStrategy defensiveStrategy, Random r)
+        public IEnumerable<IShipPosition> GetShipPositions(DefensiveStrategy defensiveStrategy, Random r)
         {
-            if (defensiveStrategy == METest.DefensiveStrategy.SemiRandom)
+            if (defensiveStrategy == DefensiveStrategy.SemiRandom)
             {
                 var rand = r.Next(0, 10);
                 if (rand % 10 == 1)
                 {
-                    defensiveStrategy = METest.DefensiveStrategy.Avoid;
+                    defensiveStrategy = DefensiveStrategy.Avoid;
                 }
                 else if (rand % 10 == 2)
                 {
-                    defensiveStrategy = METest.DefensiveStrategy.Diversion;
+                    defensiveStrategy = DefensiveStrategy.Diversion;
                 }
                 else if (rand % 10 == 3)
                 {
-                    defensiveStrategy = METest.DefensiveStrategy.Edge;
+                    defensiveStrategy = DefensiveStrategy.Edge;
                 }
                 else if (rand % 10 == 4)
                 {
-                    defensiveStrategy = METest.DefensiveStrategy.Shield;
+                    defensiveStrategy = DefensiveStrategy.Shield;
                 }
                 else if (rand % 10 == 5)
                 {
-                    defensiveStrategy = METest.DefensiveStrategy.Shield;
+                    defensiveStrategy = DefensiveStrategy.Shield;
                 }
                 else
                 {
-                    defensiveStrategy = METest.DefensiveStrategy.Mixed;
+                    defensiveStrategy = DefensiveStrategy.Mixed;
                 }
             }
 
@@ -80,7 +80,7 @@ namespace BattleshipBot
             shipPositions.Add(GetShipRandomWeightedPosition(2));
             */
 
-            if (defensiveStrategy == METest.DefensiveStrategy.Edge)
+            if (defensiveStrategy == DefensiveStrategy.Edge)
             {
                 shipPositions.Add(GetShipsToAvoidShotsPosition(5));
                 shipPositions.Add(GetShipOnEdge(4));
@@ -89,7 +89,7 @@ namespace BattleshipBot
                 shipPositions.Add(GetShipOnEdge(2));
             }
 
-            if (defensiveStrategy == METest.DefensiveStrategy.Avoid)
+            if (defensiveStrategy == DefensiveStrategy.Avoid)
             {
                 shipPositions.Add(GetShipsToAvoidShotsPosition(5));
                 shipPositions.Add(GetShipsToAvoidShotsPosition(4));
@@ -98,7 +98,7 @@ namespace BattleshipBot
                 shipPositions.Add(GetShipsToAvoidShotsPosition(2));
             }
 
-            else if (defensiveStrategy == METest.DefensiveStrategy.Mixed)
+            else if (defensiveStrategy == DefensiveStrategy.Mixed)
             {
                 shipPositions.Add(GetShipOnEdge(5));
                 shipPositions.Add(GetShipOnEdge(4));
@@ -113,13 +113,21 @@ namespace BattleshipBot
             shipPositions.Add(GetShipsToBeUniformish(3));
             shipPositions.Add(GetShipsToBeUniformish(2));
             */
-            else if (defensiveStrategy == METest.DefensiveStrategy.Diversion)
+            else if (defensiveStrategy == DefensiveStrategy.Diversion)
             {
                 return GetDiversionShips();
             }
-            else if (defensiveStrategy == METest.DefensiveStrategy.Shield)
+            else if (defensiveStrategy == DefensiveStrategy.Shield)
             {
                 return GetShieldShips();
+            }
+            else if (defensiveStrategy == DefensiveStrategy.Uniform)
+            {
+                shipPositions.Add(GetShipsToBeUniformish(5));
+                shipPositions.Add(GetShipsToBeUniformish(4));
+                shipPositions.Add(GetShipsToBeUniformish(3));
+                shipPositions.Add(GetShipsToBeUniformish(3));
+                shipPositions.Add(GetShipsToBeUniformish(2));
             }
             return shipPositions;
 
@@ -151,7 +159,7 @@ namespace BattleshipBot
             Coordinate c = SP.placeShipToAvoidShots(shipLength, enemyMap);
             return CoordinateToShipPosition(c, shipLength);
         }
-
+        
         private ShipPosition GetShipsToBeUniformish(int shipLength)
         {
             Coordinate c = SP.placeShipRandomlyUniformly(shipLength,r);

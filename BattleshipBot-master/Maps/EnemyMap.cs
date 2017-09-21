@@ -27,7 +27,7 @@ namespace BattleshipBot
             }
             else if (count < 10)
             {
-                valueOfSpaces[position.x, position.y] = valueOfSpaces[position.x, position.y] + 3;// was 3
+                valueOfSpaces[position.x, position.y] = valueOfSpaces[position.x, position.y] + 4;// was 3
             }
             else if (count < 20)
             {
@@ -47,7 +47,7 @@ namespace BattleshipBot
 
         public void newBattle()
         {
-
+            count = 0;
         }
     }
 }

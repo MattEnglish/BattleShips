@@ -44,12 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Coordinate.cs" />
-    <Compile Include="EnemyMap.cs" />
-    <Compile Include="EnemyShipRecord.cs" />
+    <Compile Include="DefensiveController.cs" />
+    <Compile Include="Maps\AdvEnemyShipRecord.cs" />
+    <Compile Include="Maps\EnemyMap.cs" />
+    <Compile Include="Maps\EnemyShipRecord.cs" />
     <Compile Include="FindNewShip.cs" />
     <Compile Include="LegalShipPositioner.cs" />
-    <Compile Include="Map.cs" />
-    <Compile Include="MapOfEnemyShipsAllTime.cs" />
+    <Compile Include="Maps\Map.cs" />
+    <Compile Include="Maps\MapOfEnemyShipsAllTime.cs" />
     <Compile Include="MoreUniformConfigs.cs" />
     <Compile Include="MyBot.cs" />
     <Compile Include="OrientationFinder.cs" />
@@ -63,11 +65,15 @@
     <Compile Include="SurroundingSpacescs.cs" />
     <Compile Include="Targeter.cs" />
     <Compile Include="TargeterClusterBomb.cs" />
+    <Compile Include="TargeterController.cs" />
     <Compile Include="TargeterLearn.cs" />
     <Compile Include="TargeterSemiSnipe.cs" />
     <Compile Include="TargeterUniform.cs" />
     <Compile Include="UtilityFunctions.cs" />
     <Compile Include="Vector2.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

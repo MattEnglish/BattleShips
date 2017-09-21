@@ -30,7 +30,6 @@ namespace BattleshipBot
         public Ship[] GetShips()
         {
             return ships.ToArray();
-
         }
 
         public int GetHitSpace(int row, int column)
@@ -64,7 +63,12 @@ namespace BattleshipBot
             {
                 shipTarget.numberOfHits++;
             }
-
+            if(shipTarget!=null && shipTarget.isDestroyed())
+            {
+                addShip(shipTarget.GetCurrentShip().coordinate, shipTarget.GetCurrentShip().shipLength);
+                shipTarget = null;
+            }
+            
         }
 
         public bool[,] GetOccupiedSpaces()
@@ -182,6 +186,12 @@ namespace BattleshipBot
 
         public bool WonMatch()
         {
+            if(ships.Count == 5)
+            {
+                return true;
+            }
+            return false;
+            /*
             int numberOfHits = 0;
             for (int row = 0; row < 10; row++)
             {
@@ -198,6 +208,7 @@ namespace BattleshipBot
                 return true;
             }
             return false;
+            */
         }
 
     }
