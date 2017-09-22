@@ -9,7 +9,7 @@ namespace BattleshipBot
     public class TargeterController
     {
         private TargetStrategy targetStrategy;
-        enum TargetStrategy { ConfigLearn, ClusterBomb }
+        enum TargetStrategy {Uniform, ClusterBomb, ConfigLearn }
         private Targeter targeter;
         private Map currentMap;
         private Random random;
@@ -59,7 +59,7 @@ namespace BattleshipBot
             */
             else
             {
-                //targeter = new TargeterUniform(currentMap, random);
+                targeter = new TargeterUniform(currentMap, random);
             }
         }
 

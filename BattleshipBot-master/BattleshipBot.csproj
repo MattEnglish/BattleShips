@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Coordinate.cs" />
     <Compile Include="DefensiveController.cs" />
+    <Compile Include="ExtraSpaceInfo.cs" />
     <Compile Include="Maps\AdvEnemyShipRecord.cs" />
     <Compile Include="Maps\EnemyMap.cs" />
     <Compile Include="Maps\EnemyShipRecord.cs" />
@@ -63,12 +64,13 @@
     <Compile Include="ShipTarget.cs" />
     <Compile Include="ShipTargeter.cs" />
     <Compile Include="SurroundingSpacescs.cs" />
-    <Compile Include="Targeter.cs" />
-    <Compile Include="TargeterClusterBomb.cs" />
-    <Compile Include="TargeterController.cs" />
-    <Compile Include="TargeterLearn.cs" />
-    <Compile Include="TargeterSemiSnipe.cs" />
-    <Compile Include="TargeterUniform.cs" />
+    <Compile Include="Targeters\Targeter.cs" />
+    <Compile Include="Targeters\TargeterClusterBomb.cs" />
+    <Compile Include="Targeters\TargeterController.cs" />
+    <Compile Include="Targeters\TargeterLearn.cs" />
+    <Compile Include="Targeters\TargeterSemiSnipe.cs" />
+    <Compile Include="Targeters\TargeterUniform.cs" />
+    <Compile Include="Targeters\TargeterUnifromLearn.cs" />
     <Compile Include="UtilityFunctions.cs" />
     <Compile Include="Vector2.cs" />
   </ItemGroup>

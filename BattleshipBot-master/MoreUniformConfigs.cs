@@ -8,7 +8,10 @@ namespace BattleshipBot
 {
     public class MoreUniformConfigs
     {
-        
+        public double[,,] GetInitalUniformCoordsValueKinda(int shipLength)
+        {
+            return GetInitalUniformCoordsValueKinda(shipLength, new Map());
+        }
 
         public double[,,] GetInitalUniformCoordsValueKinda(int shipLength, Map map)
         {
@@ -33,7 +36,7 @@ namespace BattleshipBot
             }
             coordValues = NormalizedArray(coordValues);
             var spaceValues = GetSpaceValueSumofCoordValues(coordValues, shipLength);
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 200; i++)
             {
                 coordValues = GetMoreUniformCoordsValues(shipLength, spaceValues, coordValues,lP);
                 spaceValues = GetSpaceValueSumofCoordValues(coordValues, shipLength);
@@ -44,7 +47,7 @@ namespace BattleshipBot
 
 
 
-        public double[,,] GetMoreUniformCoordsValues(int shipLength, double[,] spaceValues, double[,,] coordsValues, LegalShipPositioner legalPositioner)
+        private double[,,] GetMoreUniformCoordsValues(int shipLength, double[,] spaceValues, double[,,] coordsValues, LegalShipPositioner legalPositioner)
         {
             var moreUniformCoordsValue = coordsValues;
             
@@ -65,7 +68,7 @@ namespace BattleshipBot
                                 if (orientation == 0)
                                 {
                                     var difference = averageElementSpaceValues - spaceValues[row + shipPos, col];
-                                    int x =  2*2 * shipLength;
+                                    int x =  2 * 2 * shipLength;
                                     moreUniformCoordsValue[row, col, orientation] = moreUniformCoordsValue[row, col, orientation] + difference / x;
                                     moreUniformCoordsValue[row, col, orientation] = Math.Max(moreUniformCoordsValue[row, col, orientation], 0.0001);
                                 }
@@ -158,7 +161,44 @@ namespace BattleshipBot
             return sum / (array.Length - numberOfZeros);
         }
 
-       
+
+        public double[,] GetSpaceValueSumofCoordValuesGivenLegalPos(double[,,] coordinateValues, int shipLength, Map mapOfLegalPos)
+        {
+            LegalShipPositioner lp = new LegalShipPositioner(mapOfLegalPos, shipLength);
+            var legalCoords = lp.getLegalPositions();
+            double[,] valueSum = new double[10, 10];
+            for (int row = 0; row < 11 - shipLength; row++)
+            {
+                for (int column = 0; column < 10; column++)
+                {
+                    if (legalCoords[row, column, 0])
+                    {
+                        for (int PosOnShip = 0; PosOnShip < shipLength; PosOnShip++)
+                        {
+                            valueSum[row + PosOnShip, column] += coordinateValues[row, column, 0];
+                        }
+                    }
+                }
+            }
+
+            for (int row = 0; row < 10; row++)
+            {
+                for (int column = 0; column < 11 - shipLength; column++)
+                {
+                    if (legalCoords[row, column, 1])
+                    {
+                        for (int PosOnShip = 0; PosOnShip < shipLength; PosOnShip++)
+                        {
+
+                            valueSum[row, column + PosOnShip] += coordinateValues[row, column, 1];
+
+                        }
+                    }
+                }
+            }
+
+            return valueSum;
+        }
 
 
         public double[,] GetSpaceValueSumofCoordValues(double[,,]coordinateValues,int shipLength)

@@ -54,12 +54,12 @@ public class ShipTargeter
             if (orientation == Orientation.vertical)
             {
                 space = shipTarget.spaceAtEndOfHits(firstShotPos, direction.up);
-                if(map.SpaceUnknown(space))
+                if(ExtraSpaceInfo.isAdjacentSpacePossibleHit(space, map))
                 {
                     return space;
                 }
                 space = shipTarget.spaceAtEndOfHits(firstShotPos, direction.down);
-                if (map.SpaceUnknown(space))
+                if (ExtraSpaceInfo.isAdjacentSpacePossibleHit(space, map))
                 {
                     return space;
                 }
@@ -69,12 +69,12 @@ public class ShipTargeter
             if(orientation == Orientation.horizontal)
             {
                 space = shipTarget.spaceAtEndOfHits(firstShotPos, direction.right);
-                if (map.SpaceUnknown(space))
+                if (ExtraSpaceInfo.isAdjacentSpacePossibleHit(space,map))
                 {
                     return space;
                 }
                 space = shipTarget.spaceAtEndOfHits(firstShotPos, direction.left);
-                if (map.SpaceUnknown(space))
+                if (ExtraSpaceInfo.isAdjacentSpacePossibleHit(space, map))
                 {
                     return space;
                 }

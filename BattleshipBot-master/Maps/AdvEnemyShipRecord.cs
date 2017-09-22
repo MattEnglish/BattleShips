@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleshipBot
 {
-    public class CoordinateCovariance
+    public class CoordinateCovariance// TO Do add symmetry stuff. add memory for misses?
     {
         private List<List<Ship>> previousShipConfigs = new List<List<Ship>>();
 
@@ -15,7 +15,7 @@ namespace BattleshipBot
             previousShipConfigs.Add(newConfig);
         }
 
-        public double[,,] placeholder(List<Ship> currentConfig, int shipLengthOfplaceholder)
+        public double[,,] GetNumberOfTimesShipHasBeenInAConfiguarationWithAsWellAsAShipInCurrentConfigForEachShipinCurrentConfigBLAH(List<Ship> currentConfig, int shipLengthOfplaceholder)
         {
             var x = new double[10, 10, 2];
             foreach (var ship in currentConfig)

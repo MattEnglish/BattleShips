@@ -111,7 +111,7 @@ namespace BattleshipBot
             }
             if(orientation == Orientation.vertical)
             {
-                if (!spaceAtEndOfHitsIsUnknown(firstShotPos, direction.up))
+                if (!spaceAtEndOfHitsIsPossibleHit(firstShotPos, direction.up))
                 {
                     if (!spaceAtEndOfHitsIsUnknown(firstShotPos, direction.down))
                     { return true; }
@@ -120,7 +120,7 @@ namespace BattleshipBot
             }        
             else
             {
-                if (!spaceAtEndOfHitsIsUnknown(firstShotPos, direction.right))
+                if (!spaceAtEndOfHitsIsPossibleHit(firstShotPos, direction.right))
                 {
                     if (!spaceAtEndOfHitsIsUnknown(firstShotPos, direction.left))
                     { return true; }
@@ -137,6 +137,11 @@ namespace BattleshipBot
             return map.SpaceUnknown(endSpace);
         }
 
+        public bool spaceAtEndOfHitsIsPossibleHit(Vector2 startingSpace, direction direction)
+        {
+            Vector2 endSpace = spaceAtEndOfHits(startingSpace, direction);
+            return ExtraSpaceInfo.isAdjacentSpacePossibleHit(endSpace,map);
+        }
        
         
 

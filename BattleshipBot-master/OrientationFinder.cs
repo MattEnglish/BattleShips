@@ -76,7 +76,7 @@ namespace BattleshipBot
         {
             Vector2 space = shipTarget.GetFirstShotPos() + Vector2.getVector(theDirection);
             int possibleDist = 0;
-            if(isAdjacentSpacePossibleHit(space))
+            if(ExtraSpaceInfo.isAdjacentSpacePossibleHit(space,map))
             {
                 space = space + Vector2.getVector(theDirection);
                 possibleDist++;
@@ -85,7 +85,7 @@ namespace BattleshipBot
             {
                 return 0;
             }
-            while (isNonAdjacentSpacePossibleHit(space))
+            while (ExtraSpaceInfo.isNonAdjacentSpacePossibleHit(space,map))
             {
                 space = space + Vector2.getVector(theDirection);
                 possibleDist++;
@@ -93,44 +93,7 @@ namespace BattleshipBot
             return possibleDist;
         }
 
-        public bool isAdjacentSpacePossibleHit(Vector2 space)
-        {
-            if(!Map.InBounds(space.x,space.y))
-            {
-                return false;
-            }
-            if(map.GetHitSpace(space)==hitSpace.miss)
-            {
-                return false;
-            }
-            SurroundingSpaces sS = new SurroundingSpaces(space, map);
-
-            if (sS.GetNumberOfAdjacentOrDiagonalHits() > 1)
-            {
-                return false;
-            }
-            return true;
-            
-        }
-
-        public bool isNonAdjacentSpacePossibleHit(Vector2 space)
-        {
-            if (!Map.InBounds(space.x, space.y))
-            {
-                return false;
-            }
-            if (map.GetHitSpace(space) == hitSpace.miss)
-            {
-                return false;
-            }
-            SurroundingSpaces sS = new SurroundingSpaces(space,map);
-
-            if (sS.GetNumberOfAdjacentOrDiagonalHits() > 0)
-            {
-                return false;
-            }
-            return true;
-        }
+        
 
 
     }
