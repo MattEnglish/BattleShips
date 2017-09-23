@@ -87,7 +87,7 @@ namespace BattleshipBot
         private double[,,] GetCoordinateValues(int shipLength)
         {
             var x = GetInitalShipCoordinateValues(shipLength);
-            var y = AESCV.GetShipRecordedValuesRememberThreesAreDoubled(shipLength);
+            var y = AESCV.GetShipRecordedValuesRememberThreesAreDoubled(shipLength,map.GetShips().ToList());
             var coordinateValues = new double[10, 10, 2];
             for (int row = 0; row < 10; row++)
             {

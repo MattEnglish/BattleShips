@@ -51,5 +51,20 @@ namespace BattleshipBot.Tests
             c = UtilityFunctions.GetInverseWeightedRandomCoordinate(doubles, r);
             Assert.IsTrue(c.GetRow() == 2 && c.GetColumn() == 2 && c.GetOrientation() == 2);
         }
+
+        [TestMethod()]
+        public void GetAllShipSymmetriesTest()
+        {
+            var ship = new Ship(new Coordinate (0, 1, 0), 3);
+            var ships = UtilityFunctions.GetAllShipSymmetries(ship);
+            Assert.IsTrue(ships.Any(x => x.coordinate == new Coordinate (0, 1, 0)));
+            Assert.IsTrue(ships.Any(x => x.coordinate == new Coordinate(1, 0, 1)));
+            Assert.IsTrue(ships.Any(x => x.coordinate == new Coordinate(7, 1, 0)));
+            Assert.IsTrue(ships.Any(x => x.coordinate == new Coordinate(8, 0, 1)));
+            Assert.IsTrue(ships.Any(x => x.coordinate == new Coordinate(1, 7, 1)));
+            Assert.IsTrue(ships.Any(x => x.coordinate == new Coordinate(0, 8, 0)));
+            Assert.IsTrue(ships.Any(x => x.coordinate == new Coordinate(7, 8, 0)));
+            Assert.IsTrue(ships.Any(x => x.coordinate == new Coordinate(8, 7, 1)));
+        }
     }
 }

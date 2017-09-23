@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Coordinate.cs" />
     <Compile Include="DefensiveController.cs" />
+    <Compile Include="ExtraArrayStuff.cs" />
     <Compile Include="ExtraSpaceInfo.cs" />
     <Compile Include="Maps\AdvEnemyShipRecord.cs" />
     <Compile Include="Maps\EnemyMap.cs" />

@@ -8,6 +8,17 @@ namespace BattleshipBot
 {
     public class UtilityFunctions
     {
+        public static List<Ship> GetAllShipSymmetries(Ship ship)
+        {
+            var ships = new List<Ship>();
+            ships.Add(ship);
+            ships.Add(reflectShipCols(ship));
+            ships.Add(reflectShipRows(ship));
+            ships.Add(reflectShipCols(reflectShipRows(ship)));
+            var rotatedShips = ships.Select(x => reflectShipXY(x)).ToList();
+            ships.AddRange(rotatedShips);
+            return ships;
+        }
         public static Ship reflectShipRows(Ship s)
         {
             Coordinate coord;

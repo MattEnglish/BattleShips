@@ -19,8 +19,42 @@ namespace ConsoleApplication1
             //findnewShipDistribution.Run();
             //findnewShipDistribution.Run2();
             // hmmm.WeightedRandomShipPositonTest();
-            reallyDeleteMeLol.Run();
+            TestLeague.Run();
         }
+
+    }
+    class TestLeague
+    {
+        public static void Run()
+        {
+            Pugwash pugwash = new Pugwash();
+            pugwash.GetShipPositions();
+            var a = pugwash.SelectTarget();
+            for (int i = 0; i < 34; i++)
+            {
+                pugwash.HandleShotResult(a, isShotHit((GridSquare)a));
+                a = pugwash.SelectTarget();
+            }
+            pugwash.HandleShotResult(a, isShotHit((GridSquare)a));
+            pugwash.GetShipPositions();
+            for (int i = 0; i < 34; i++)
+            {
+                pugwash.HandleShotResult(a, isShotHit((GridSquare)a));
+                a = pugwash.SelectTarget();
+            }
+            pugwash.HandleShotResult(a, isShotHit((GridSquare)a));
+
+        }
+
+        private static bool isShotHit(GridSquare shot)
+        {
+            var a = IGridConversions.GridToInts(shot);
+            Map map = new Map();
+            map.addShip(new Coordinate(3, 3, 0), 5);
+            map.addShip(new Coordinate(5, 5, 0), 4);
+            return map.GetOccupiedSpaces()[a[0], a[1]];
+        }
+
 
     }
 
@@ -46,8 +80,8 @@ namespace ConsoleApplication1
             map.addShip(new Coordinate(5, 1, 0), 3);
             map.addShip(new Coordinate(3, 1, 1), 5);
             var adv = new AdvEnemyShipValueCalc();
-            adv.AddMap(map);
-            adv.AddMap(map);
+            adv.AddMap(map,false,true);
+            adv.AddMap(map,false,false);
         }
 
         public static void Run3()
@@ -57,13 +91,14 @@ namespace ConsoleApplication1
             AdvEnemyShipValueCalc aesvc = new AdvEnemyShipValueCalc();
             Map prevMap = new Map();
             prevMap.addShip(new Coordinate(4, 1, 1), 5);
-            aesvc.AddMap(prevMap);
+            aesvc.AddMap(prevMap,false,false);
             Targeter TU = new TargeterUniformLearn(map, new Random(),aesvc);
             var x = TU.findNewShip();
             map.shotFired(false, 4, 3);
             var y = TU.findNewShip();
         }
     }
+    
         class reallyDeleteMeLol
         {
             public static void Run()
@@ -77,7 +112,7 @@ namespace ConsoleApplication1
             pugwash.GetShipPositions();
             pugwash.HandleOpponentsShot(new GridSquare('A', 1));
             z = pugwash.SelectTarget();
-            pugwash.HandleShotResult(z,false);
+            pugwash.HandleShotResult(z,true);
             pugwash.HandleShotResult(pugwash.SelectTarget(), true);
             pugwash.HandleShotResult(pugwash.SelectTarget(), true);
             pugwash.HandleShotResult(pugwash.SelectTarget(), true);
@@ -85,10 +120,11 @@ namespace ConsoleApplication1
             pugwash.HandleShotResult(pugwash.SelectTarget(), false);
             var x = pugwash.SelectTarget();
             var y = pugwash.SelectTarget();
-            
-                
+            pugwash.GetShipPositions();
+            var a = pugwash.SelectTarget();
 
-            }
+
+        }
 
         public static void Run2()
         {

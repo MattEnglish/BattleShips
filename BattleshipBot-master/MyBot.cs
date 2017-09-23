@@ -35,7 +35,7 @@ namespace BattleshipBot
         private EnemyMap enemyMap = new EnemyMap();
         private EnemyShipRecord enemyShipRecord = new EnemyShipRecord();
         private AdvEnemyShipValueCalc aescv;
-
+        private int matchnumber = 0;
 
        public Pugwash()
         {
@@ -50,10 +50,11 @@ namespace BattleshipBot
         public event NewGameHandler newGame;
 
         public IEnumerable<IShipPosition> GetShipPositions()
-        {           
+        {
+            matchnumber++;        
             Map newMap = new Map();
             enemyShipRecord.addMap(currentMap);
-            aescv.AddMap(currentMap);
+            aescv.AddMap(currentMap, currentMap.WonMatch(),matchnumber==1);
             newGame(new NewGameEventArgs(currentMap,newMap,currentMap.WonMatch()));
             currentMap = newMap;
             lastRow = 0;
@@ -93,7 +94,7 @@ namespace BattleshipBot
             enemyMap.enemyShot(false, pos);
         }
 
-        public string Name => "Return Of METEST2"; //Includes Counter to 100 !!!!
+        public string Name => "PartiallyAmnesicUniLearn"; //Includes Counter to 100 !!!!
 
         
 

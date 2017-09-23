@@ -13,12 +13,13 @@ namespace BattleshipBot
         bool[,] occupiedSpaces;
         bool[,] blockedSpaces;
         int[,] hitSpaces;
-        private ShipTarget shipTarget = null;
+        public ShipTarget shipTarget { get; private set; } 
 
         List<Ship> ships;
 
         public Map()
         {
+            shipTarget = null;//THIS NEEDS TO BE SORTED OUT SERIOUSLY
             occupiedSpaces = new bool[10, 10];
             blockedSpaces = new bool[10, 10];
             hitSpaces = new int[10, 10];
@@ -63,11 +64,16 @@ namespace BattleshipBot
             {
                 shipTarget.numberOfHits++;
             }
+            else if(shipTarget == null && hit)
+            {
+                shipTarget = new ShipTarget(this, row, column);
+            }
             if(shipTarget!=null && shipTarget.isDestroyed())
             {
                 addShip(shipTarget.GetCurrentShip().coordinate, shipTarget.GetCurrentShip().shipLength);
                 shipTarget = null;
             }
+            
             
         }
 
