@@ -13,7 +13,7 @@ namespace BattleshipBot.Tests
     {
         private void AddShips(Map map)
         {
-            
+
             Coordinate c1 = new Coordinate(0, 0, 0);
             Coordinate c2 = new Coordinate(7, 7, 1);
             Coordinate c3 = new Coordinate(5, 5, 0);
@@ -21,7 +21,7 @@ namespace BattleshipBot.Tests
             map.addShip(c2, 3);
             map.addShip(c3, 5);
         }
-       
+
 
         [TestMethod()]
         public void GetShipsTest()
@@ -30,7 +30,7 @@ namespace BattleshipBot.Tests
             AddShips(map);
             Ship[] ships = map.GetShips();
             System.Diagnostics.Trace.WriteLine(ships[0].coordinate.GetOrientation());
-            Assert.IsTrue(ships[1].coordinate.GetRow() == 7 );
+            Assert.IsTrue(ships[1].coordinate.GetRow() == 7);
             Assert.IsTrue(ships[1].coordinate.GetColumn() == 7);
             Assert.IsTrue(ships[1].coordinate.GetOrientation() == 1);
             Assert.IsTrue(ships.Length == 3);
@@ -42,7 +42,7 @@ namespace BattleshipBot.Tests
         {
             Map map = new Map();
             map.shotFired(true, 3, 3);
-            map.shotFired(false, 4,5);
+            map.shotFired(false, 4, 5);
             /*
             Assert.IsTrue(map.GetHitSpaces()[3, 3] == 2);
             Assert.IsTrue(map.GetHitSpaces()[4,5] == 1);
@@ -60,7 +60,7 @@ namespace BattleshipBot.Tests
             Assert.IsTrue(map.GetHitSpace(4, 5) == 1);
             Assert.IsTrue(map.GetHitSpace(5, 5) == 0);
         }
-        
+
 
         [TestMethod()]
         public void GetOccupiedSpacesTest()
@@ -75,15 +75,15 @@ namespace BattleshipBot.Tests
 
             for (int i = 0; i < 3; i++)
             {
-                Assert.IsTrue(map.GetOccupiedSpaces()[7, 7+i]);
+                Assert.IsTrue(map.GetOccupiedSpaces()[7, 7 + i]);
             }
             Assert.IsFalse(map.GetOccupiedSpaces()[7, 6]);
 
             for (int i = 0; i < 5; i++)
             {
-                Assert.IsTrue(map.GetOccupiedSpaces()[5+i, 5]);
+                Assert.IsTrue(map.GetOccupiedSpaces()[5 + i, 5]);
             }
-            
+
 
         }
 
@@ -96,7 +96,7 @@ namespace BattleshipBot.Tests
             map.shotFired(true, 5, 4);
             map.addOccupiedSpace(6, 6);
             map.addShip(new Coordinate(8, 8, 0), 2);
-            
+
 
             bool[,] blockedSpaces;
             blockedSpaces = map.GetBlockedSpaces();
@@ -110,8 +110,21 @@ namespace BattleshipBot.Tests
 
         }
 
-       
-
-
+        [TestMethod()]
+        public void GetUnfoundShipsLengthsTest()
+        {
+            var map = new Map();
+            var x = map.GetUnfoundShipsLengths();
+            Assert.AreEqual(5, map.GetUnfoundShipsLengths().Count);
+            map.addShip(new Coordinate(0, 0, 0), 3);
+            x = map.GetUnfoundShipsLengths();
+            Assert.AreEqual(4, map.GetUnfoundShipsLengths().Count);
+            map.addShip(new Coordinate(0, 0, 0), 3);
+            x = map.GetUnfoundShipsLengths();
+            Assert.AreEqual(3, map.GetUnfoundShipsLengths().Count);
+            map.addShip(new Coordinate(0, 0, 0), 5);
+            x = map.GetUnfoundShipsLengths();
+            Assert.AreEqual(2, map.GetUnfoundShipsLengths().Count);
+        }
     }
 }

@@ -34,12 +34,15 @@ namespace BattleshipBot
         private int lastColumn;
         private EnemyMap enemyMap = new EnemyMap();
         private EnemyShipRecord enemyShipRecord = new EnemyShipRecord();
-        
+        private AdvEnemyShipValueCalc aescv;
+
 
        public Pugwash()
         {
-            targeterC = new TargeterController(this,random, enemyShipRecord);
+            aescv = new AdvEnemyShipValueCalc();
+            targeterC = new TargeterController(this,random, enemyShipRecord,aescv);
             enemyMap = new EnemyMap();
+            
         }
 
         public delegate void NewGameHandler(NewGameEventArgs info);
@@ -50,6 +53,7 @@ namespace BattleshipBot
         {           
             Map newMap = new Map();
             enemyShipRecord.addMap(currentMap);
+            aescv.AddMap(currentMap);
             newGame(new NewGameEventArgs(currentMap,newMap,currentMap.WonMatch()));
             currentMap = newMap;
             lastRow = 0;
@@ -89,7 +93,7 @@ namespace BattleshipBot
             enemyMap.enemyShot(false, pos);
         }
 
-        public string Name => "Needs To be Refactored Pugwash"; //Includes Counter to 100 !!!!
+        public string Name => "Return Of METEST2"; //Includes Counter to 100 !!!!
 
         
 

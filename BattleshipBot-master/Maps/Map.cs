@@ -211,6 +211,35 @@ namespace BattleshipBot
             */
         }
 
+        public List<int> GetUnfoundShipsLengths()
+        {
+            var unfoundShipLengths = new List<int>();
+            if(!ships.Any(x=>x.shipLength==5))
+            {
+                unfoundShipLengths.Add(5);
+            }
+            if (!ships.Any(x => x.shipLength == 4))
+            {
+                unfoundShipLengths.Add(4);
+            }
+            if (!ships.Any(x => x.shipLength == 3))
+            {
+                unfoundShipLengths.Add(3);
+                unfoundShipLengths.Add(3);
+            }
+            if (ships.Where(x => x.shipLength==3).Count()==1)
+            {
+                unfoundShipLengths.Add(3);
+            }
+            if (!ships.Any(x => x.shipLength == 2))
+            {
+                unfoundShipLengths.Add(2);
+            }
+            return unfoundShipLengths;
+        }
+
+
+
     }
         public class Ship:IComparable<Ship>
     {

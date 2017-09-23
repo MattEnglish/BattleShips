@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="IGridConversionsTests.cs" />
     <Compile Include="LegalShipPositionerTests.cs" />
+    <Compile Include="Maps\AdvEnemyShipValueCalcTests.cs" />
     <Compile Include="Maps\CoordinateCovarianceTests.cs" />
     <Compile Include="MapTests.cs" />
     <Compile Include="MoreUniformConfigsTests.cs" />

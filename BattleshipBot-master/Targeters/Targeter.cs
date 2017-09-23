@@ -72,7 +72,7 @@ namespace BattleshipBot
             return false;
         }
 
-        public int[] findNewShip()
+        public virtual int[] findNewShip()//May have broken something here oops
         {
             try
             {

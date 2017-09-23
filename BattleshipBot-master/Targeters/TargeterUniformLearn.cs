@@ -6,26 +6,26 @@ using System.Threading.Tasks;
 
 namespace BattleshipBot
 {
-    
-
-
-    public class TargeterUniform : Targeter
+    public class TargeterUniformLearn : Targeter
     {
+
         private double[,,] initalFiveShipCoordValues;
         private double[,,] initalFourShipCoordValues;
         private double[,,] initalThreeShipCoordValues;
         private double[,,] initalTwoShipCoordValues;
         private MoreUniformConfigs MUC;
+        private AdvEnemyShipValueCalc AESCV;
 
 
-        public TargeterUniform(Map map, Random random) : base(map, random)
+        public TargeterUniformLearn(Map map, Random random,AdvEnemyShipValueCalc enemyShipCalculatorMem) : base(map, random)
         {
             base.map = map;
             this.random = random;
+            this.AESCV = enemyShipCalculatorMem;
             lastShotColumn = 0;
             lastShotRow = 0;
             MUC = new MoreUniformConfigs();
-            
+
             initalFiveShipCoordValues = MUC.GetInitalUniformCoordsValueKinda(5, new Map());
             initalFourShipCoordValues = MUC.GetInitalUniformCoordsValueKinda(4, new Map());
             initalThreeShipCoordValues = MUC.GetInitalUniformCoordsValueKinda(3, new Map());
@@ -68,19 +68,43 @@ namespace BattleshipBot
         private double[,] GetAllSpaceValues()
         {
             var spaceValues = new double[10, 10];
+            
             foreach (int unfoundShipLength in map.GetUnfoundShipsLengths())
             {
-                var shipLengthSpaceValue = MUC.GetSpaceValueSumofCoordValuesGivenLegalPos(GetInitalShipCoordinateValues(unfoundShipLength), unfoundShipLength, map);
+                var shipLengthSpaceValue = MUC.GetSpaceValueSumofCoordValuesGivenLegalPos(GetCoordinateValues(unfoundShipLength), unfoundShipLength, map);
                 for (int row = 0; row < 10; row++)
                 {
                     for (int col = 0; col < 10; col++)
                     {
-                        spaceValues[row, col] += unfoundShipLength*shipLengthSpaceValue[row, col];
+                        spaceValues[row, col] += unfoundShipLength * shipLengthSpaceValue[row, col];
                     }
                 }
 
             }
             return spaceValues;
+        }
+
+        private double[,,] GetCoordinateValues(int shipLength)
+        {
+            var x = GetInitalShipCoordinateValues(shipLength);
+            var y = AESCV.GetShipRecordedValuesRememberThreesAreDoubled(shipLength);
+            var coordinateValues = new double[10, 10, 2];
+            for (int row = 0; row < 10; row++)
+            {
+                for (int col = 0; col < 10; col++)
+                {
+                    for (int ori = 0; ori < 2; ori++)
+                    {
+                        coordinateValues[row, col, ori] = x[row, col, ori] + y[row, col, ori]/2;
+
+                        if(shipLength!=3)
+                        {
+                            coordinateValues[row, col, ori] += y[row, col, ori] / 2;
+                        }
+                    }
+                }
+            }
+            return coordinateValues;
         }
         /*
         public override int[] findNewShipM(int shipLength)
@@ -122,8 +146,8 @@ namespace BattleshipBot
                 default:
                     throw new Exception();
             }
-            
+
         }
     }
-    
 }
+

@@ -70,7 +70,7 @@
     <Compile Include="Targeters\TargeterLearn.cs" />
     <Compile Include="Targeters\TargeterSemiSnipe.cs" />
     <Compile Include="Targeters\TargeterUniform.cs" />
-    <Compile Include="Targeters\TargeterUnifromLearn.cs" />
+    <Compile Include="Targeters\TargeterUniformLearn.cs" />
     <Compile Include="UtilityFunctions.cs" />
     <Compile Include="Vector2.cs" />
   </ItemGroup>

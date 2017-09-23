@@ -9,18 +9,20 @@ namespace BattleshipBot
     public class TargeterController
     {
         private TargetStrategy targetStrategy;
-        enum TargetStrategy {Uniform, ClusterBomb, ConfigLearn }
+        enum TargetStrategy {UniformLearn, ClusterBomb}
         private Targeter targeter;
         private Map currentMap;
         private Random random;
         private EnemyShipRecord enemyShipRecord;
         private int lostStreak = -1;
+        private AdvEnemyShipValueCalc aesvc;
 
-        public TargeterController(Pugwash pugwash, Random random, EnemyShipRecord enemyShipRecord)
+        public TargeterController(Pugwash pugwash, Random random, EnemyShipRecord enemyShipRecord, AdvEnemyShipValueCalc aesvc)
         {
             this.random = random;
             pugwash.newGame += new Pugwash.NewGameHandler(NewGame);
             this.enemyShipRecord = enemyShipRecord;
+            this.aesvc = aesvc;
         }
 
 
@@ -46,9 +48,9 @@ namespace BattleshipBot
                 targeter = new TargeterClusterBomb(currentMap, random, enemyShipRecord);
             }
 
-            else if (targetStrategy == TargetStrategy.ConfigLearn)
+            else if (targetStrategy == TargetStrategy.UniformLearn)
             {
-                targeter = new TargeterLearn(currentMap, random, enemyShipRecord);
+                targeter = new TargeterUniformLearn(currentMap, random, aesvc);
             }
 
             /*

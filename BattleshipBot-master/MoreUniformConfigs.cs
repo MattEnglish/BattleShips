@@ -135,7 +135,7 @@ namespace BattleshipBot
             return array;
         }
 
-        private double GetSumOfArray(double [,,] array)
+        public double GetSumOfArray(double [,,] array)
         {
             double sum = 0;
             foreach (double element in array)

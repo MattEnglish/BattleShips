@@ -113,7 +113,7 @@ namespace BattleshipBot
             {
                 if (!spaceAtEndOfHitsIsPossibleHit(firstShotPos, direction.up))
                 {
-                    if (!spaceAtEndOfHitsIsUnknown(firstShotPos, direction.down))
+                    if (!spaceAtEndOfHitsIsPossibleHit(firstShotPos, direction.down))
                     { return true; }
                 }
 
@@ -122,7 +122,7 @@ namespace BattleshipBot
             {
                 if (!spaceAtEndOfHitsIsPossibleHit(firstShotPos, direction.right))
                 {
-                    if (!spaceAtEndOfHitsIsUnknown(firstShotPos, direction.left))
+                    if (!spaceAtEndOfHitsIsPossibleHit(firstShotPos, direction.left))
                     { return true; }
                 }
 
