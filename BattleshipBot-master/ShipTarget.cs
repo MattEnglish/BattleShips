@@ -12,12 +12,14 @@ namespace BattleshipBot
         Orientation orientation = Orientation.unknown;
         Map map;
         public int numberOfHits = 1;
-
+        public List<Vector2> hitPositions;
 
         public ShipTarget(Map map, int row, int column)
         {
 
             firstShotPos = new Vector2(row, column);
+            hitPositions = new List<Vector2>();
+            hitPositions.Add(firstShotPos);
             this.map = map;
             map.addShipTarget(this);
         }

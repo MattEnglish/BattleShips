@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvShipTargeter.cs" />
     <Compile Include="Coordinate.cs" />
     <Compile Include="DefensiveController.cs" />
     <Compile Include="ExtraArrayStuff.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Maps\EnemyShipRecord.cs" />
     <Compile Include="FindNewShip.cs" />
     <Compile Include="LegalShipPositioner.cs" />
+    <Compile Include="Maps\FakeMap.cs" />
     <Compile Include="Maps\Map.cs" />
     <Compile Include="Maps\MapOfEnemyShipsAllTime.cs" />
     <Compile Include="MoreUniformConfigs.cs" />
@@ -65,6 +67,7 @@
     <Compile Include="ShipTarget.cs" />
     <Compile Include="ShipTargeter.cs" />
     <Compile Include="SurroundingSpacescs.cs" />
+    <Compile Include="Targeters\CoordinateValues.cs" />
     <Compile Include="Targeters\Targeter.cs" />
     <Compile Include="Targeters\TargeterClusterBomb.cs" />
     <Compile Include="Targeters\TargeterController.cs" />

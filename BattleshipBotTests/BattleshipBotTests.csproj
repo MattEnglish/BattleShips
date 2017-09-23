@@ -55,6 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AdvShipTargeterTests.cs" />
     <Compile Include="IGridConversionsTests.cs" />
     <Compile Include="LegalShipPositionerTests.cs" />
     <Compile Include="Maps\AdvEnemyShipValueCalcTests.cs" />

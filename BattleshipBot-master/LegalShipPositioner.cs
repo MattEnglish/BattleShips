@@ -16,7 +16,6 @@ namespace BattleshipBot
 
         public LegalShipPositioner(Map map, int shipLength)
         {
-
             this.map = map;
             this.shipLength = shipLength;
         }

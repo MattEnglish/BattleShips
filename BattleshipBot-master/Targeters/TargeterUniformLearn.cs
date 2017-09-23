@@ -9,15 +9,12 @@ namespace BattleshipBot
     public class TargeterUniformLearn : Targeter
     {
 
-        private double[,,] initalFiveShipCoordValues;
-        private double[,,] initalFourShipCoordValues;
-        private double[,,] initalThreeShipCoordValues;
-        private double[,,] initalTwoShipCoordValues;
         private MoreUniformConfigs MUC;
         private AdvEnemyShipValueCalc AESCV;
+        private CoordinateValues coordValueHolder;
 
 
-        public TargeterUniformLearn(Map map, Random random,AdvEnemyShipValueCalc enemyShipCalculatorMem) : base(map, random)
+        public TargeterUniformLearn(Map map, Random random, AdvEnemyShipValueCalc enemyShipCalculatorMem) : base(map, random)
         {
             base.map = map;
             this.random = random;
@@ -25,22 +22,41 @@ namespace BattleshipBot
             lastShotColumn = 0;
             lastShotRow = 0;
             MUC = new MoreUniformConfigs();
+            coordValueHolder = new CoordinateValues(map,enemyShipCalculatorMem);
 
-            initalFiveShipCoordValues = MUC.GetInitalUniformCoordsValueKinda(5, new Map());
-            initalFourShipCoordValues = MUC.GetInitalUniformCoordsValueKinda(4, new Map());
-            initalThreeShipCoordValues = MUC.GetInitalUniformCoordsValueKinda(3, new Map());
-            initalTwoShipCoordValues = MUC.GetInitalUniformCoordsValueKinda(2, new Map());
-            //
-            //
-            //
-            //
-            //WARNING EVERY TIME MAKE NEW TARGETUNIFORM MASSIVE PERFOMRANCE PROBLEMS
-            //
-            //
-            //
-            //
 
         }
+
+        public override int[] GetNextTarget(int theLastRowShot, int theLastColumnShot)
+        {
+            lastShotRow = theLastRowShot;
+            lastShotColumn = theLastColumnShot;
+
+            if (shipTarget != null)
+            {
+                if (shipTarget.isDestroyed())
+                {
+                    Ship s = shipTarget.GetCurrentShip();
+                    shipTarget = null;
+                    return findNewShip();
+                }
+            }
+            if (shipTarget == null)
+            {
+                if (lastShotHit())
+                {
+                    shipTarget = new ShipTarget(map, lastShotRow, lastShotColumn);
+                    //shipTargeter = new AdvShipTargeter(map, shipTarget,AESCV,coordValueHolder);
+                    shipTargeter = new ShipTargeter(map, shipTarget);
+                    return shipTargeter.GetNextShot().ToArray();
+                }
+                return findNewShip();
+            }
+            return shipTargeter.GetNextShot().ToArray();
+
+
+        }
+
         public override int[] findNewShip()
         {
 
@@ -68,10 +84,10 @@ namespace BattleshipBot
         private double[,] GetAllSpaceValues()
         {
             var spaceValues = new double[10, 10];
-            
+
             foreach (int unfoundShipLength in map.GetUnfoundShipsLengths())
             {
-                var shipLengthSpaceValue = MUC.GetSpaceValueSumofCoordValuesGivenLegalPos(GetCoordinateValues(unfoundShipLength), unfoundShipLength, map);
+                var shipLengthSpaceValue = MUC.GetSpaceValueSumofCoordValuesGivenLegalPos(coordValueHolder.GetCoordinateValues(unfoundShipLength), unfoundShipLength, map);
                 for (int row = 0; row < 10; row++)
                 {
                     for (int col = 0; col < 10; col++)
@@ -84,28 +100,7 @@ namespace BattleshipBot
             return spaceValues;
         }
 
-        private double[,,] GetCoordinateValues(int shipLength)
-        {
-            var x = GetInitalShipCoordinateValues(shipLength);
-            var y = AESCV.GetShipRecordedValuesRememberThreesAreDoubled(shipLength,map.GetShips().ToList());
-            var coordinateValues = new double[10, 10, 2];
-            for (int row = 0; row < 10; row++)
-            {
-                for (int col = 0; col < 10; col++)
-                {
-                    for (int ori = 0; ori < 2; ori++)
-                    {
-                        coordinateValues[row, col, ori] = x[row, col, ori] + y[row, col, ori]/2;
-
-                        if(shipLength!=3)
-                        {
-                            coordinateValues[row, col, ori] += y[row, col, ori] / 2;
-                        }
-                    }
-                }
-            }
-            return coordinateValues;
-        }
+        
         /*
         public override int[] findNewShipM(int shipLength)
         {
@@ -131,23 +126,8 @@ namespace BattleshipBot
         }
         */
 
-        private double[,,] GetInitalShipCoordinateValues(int shipLength)
-        {
-            switch (shipLength)
-            {
-                case 5:
-                    return initalFiveShipCoordValues;
-                case 4:
-                    return initalFourShipCoordValues;
-                case 3:
-                    return initalThreeShipCoordValues;
-                case 2:
-                    return initalTwoShipCoordValues;
-                default:
-                    throw new Exception();
-            }
-
-        }
     }
+
 }
+
 

@@ -10,10 +10,10 @@ namespace BattleshipBot
 
     public class Map
     {
-        bool[,] occupiedSpaces;
-        bool[,] blockedSpaces;
-        int[,] hitSpaces;
-        public ShipTarget shipTarget { get; private set; } 
+        protected bool[,] occupiedSpaces;
+        protected bool[,] blockedSpaces;
+        protected int[,] hitSpaces;
+        public ShipTarget shipTarget { get; protected set; } 
 
         List<Ship> ships;
 
@@ -48,7 +48,7 @@ namespace BattleshipBot
             return (hitSpace)hitSpaces[v.x, v.y];
         }
 
-        public void shotFired(bool hit, int row, int column)
+        public virtual void shotFired(bool hit, int row, int column)
         {
             addBlockedSpace(row, column);
 
@@ -63,6 +63,7 @@ namespace BattleshipBot
             if(shipTarget!= null && hit)
             {
                 shipTarget.numberOfHits++;
+                shipTarget.hitPositions.Add(new Vector2(row, column));
             }
             else if(shipTarget == null && hit)
             {

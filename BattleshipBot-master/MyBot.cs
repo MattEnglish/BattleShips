@@ -94,7 +94,7 @@ namespace BattleshipBot
             enemyMap.enemyShot(false, pos);
         }
 
-        public string Name => "PartiallyAmnesicUniLearn"; //Includes Counter to 100 !!!!
+        public string Name => "METest2"; //Includes Counter to 100 !!!!
 
         
 

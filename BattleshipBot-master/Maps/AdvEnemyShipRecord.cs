@@ -150,16 +150,16 @@ namespace BattleshipBot
                                     switch (shipLength)
                                     {
                                         case 5:
-                                            FiveShipRecordedValues[row, col, ori] += 3 * shipDataPointValue/sum;
+                                            FiveShipRecordedValues[row, col, ori] += 4 * shipDataPointValue/sum;
                                             break;
                                         case 4:
-                                            FourShipRecordedValues[row, col, ori] += 3 * shipDataPointValue / sum;
+                                            FourShipRecordedValues[row, col, ori] += 4 * shipDataPointValue / sum;
                                             break;
                                         case 3:
-                                            ThreeShipRecordedValues[row, col, ori] += 3 * shipDataPointValue / sum;
+                                            ThreeShipRecordedValues[row, col, ori] += 4 * shipDataPointValue / sum;
                                             break;
                                         case 2:
-                                            TwoShipRecordedValues[row, col, ori] += 3 * shipDataPointValue / sum;
+                                            TwoShipRecordedValues[row, col, ori] += 4 * shipDataPointValue / sum;
                                             break;
                                         default:
                                             throw new Exception();

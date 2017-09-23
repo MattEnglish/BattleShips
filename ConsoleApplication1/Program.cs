@@ -50,7 +50,7 @@ namespace ConsoleApplication1
         {
             var a = IGridConversions.GridToInts(shot);
             Map map = new Map();
-            map.addShip(new Coordinate(3, 3, 0), 5);
+            map.addShip(new Coordinate(3, 3, 0), 3);
             map.addShip(new Coordinate(5, 5, 0), 4);
             return map.GetOccupiedSpaces()[a[0], a[1]];
         }

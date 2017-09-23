@@ -11,8 +11,8 @@ namespace BattleshipBot
 
 public class ShipTargeter
     {
-        private Map map;
-        private ShipTarget shipTarget;        
+        protected Map map;
+        protected ShipTarget shipTarget;        
 
         public ShipTargeter(Map map, ShipTarget shipTarget)
         {
@@ -20,7 +20,7 @@ public class ShipTargeter
             this.shipTarget = shipTarget;
         }
 
-        public Vector2 GetNextShot()
+        public virtual Vector2 GetNextShot()
         {
             Orientation orientation = shipTarget.GetOrientation();
             

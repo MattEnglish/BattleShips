@@ -18,7 +18,7 @@ namespace BattleshipBot
         protected Random random;
         
         
-        ShipTargeter shipTargeter;
+        protected ShipTargeter shipTargeter;
         protected ShipTarget shipTarget = null;      
          
         public Targeter(Map map, Random random)
@@ -61,7 +61,7 @@ namespace BattleshipBot
             
         }
 
-
+     
 
         protected bool lastShotHit()
         {
