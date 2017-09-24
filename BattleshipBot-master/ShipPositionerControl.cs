@@ -14,6 +14,7 @@ namespace BattleshipBot
         private ShipPositioner SP = new ShipPositioner();
         private List<IShipPosition> shipPositions;
         private EnemyMap enemyMap;
+        private static int driftCounter = 0;
 
         public ShipPositionerControl(EnemyMap enemyMap)
         {
@@ -129,6 +130,12 @@ namespace BattleshipBot
                 shipPositions.Add(GetShipsToBeUniformish(3));
                 shipPositions.Add(GetShipsToBeUniformish(2));
             }
+
+            else if(defensiveStrategy == DefensiveStrategy.Drift)
+            {
+                return GetDriftShips();
+               
+            }
             return shipPositions;
 
         }
@@ -185,6 +192,21 @@ namespace BattleshipBot
             {
                 yield return CoordinateToShipPosition(ship.coordinate, ship.shipLength);
             }
+
+        }
+
+        private List<ShipPosition> GetDriftShips()
+        {
+            
+            var shipList = ShipPositionerDrift.GetMarchCoordinates(driftCounter);
+            var coords = new List<ShipPosition>();
+            foreach (var ship in shipList)
+            {
+                coords.Add(CoordinateToShipPosition(ship.coordinate, ship.shipLength));
+            }
+            driftCounter++;
+            return coords;
+            
 
         }
 

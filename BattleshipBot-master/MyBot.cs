@@ -29,7 +29,8 @@ namespace BattleshipBot
         private Map currentMap = new Map();
         private Random random = new Random();
         private TargeterController targeterC;
-        private DefensiveController defensiveC = new DefensiveController();
+        //private DefenseTestController defensiveC = new DefenseTestController();
+        private DefensiveControllerAdaptive defensiveC = new DefensiveControllerAdaptive();
         private int lastRow;
         private int lastColumn;
         private EnemyMap enemyMap = new EnemyMap();
@@ -56,12 +57,13 @@ namespace BattleshipBot
             enemyShipRecord.addMap(currentMap);
             aescv.AddMap(currentMap, currentMap.WonMatch(),matchnumber==1);
             newGame(new NewGameEventArgs(currentMap,newMap,currentMap.WonMatch()));
+            var defStrat = defensiveC.GetDefensiveStrategy(currentMap.WonMatch(), matchnumber,enemyMap.count);
             currentMap = newMap;
             lastRow = 0;
             lastColumn = 0;                                
             enemyMap.newBattle();
             ShipPositionerControl spc = new ShipPositionerControl(enemyMap);
-            return spc.GetShipPositions(defensiveC.GetDefensiveStrategy(), random);
+            return spc.GetShipPositions(defStrat, random);
         }
 
         private static ShipPosition GetShipPosition(char startRow, int startColumn, char endRow, int endColumn)
@@ -94,7 +96,7 @@ namespace BattleshipBot
             enemyMap.enemyShot(false, pos);
         }
 
-        public string Name => "METest2"; //Includes Counter to 100 !!!!
+        public string Name => "Amnesic Pugwash";
 
         
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleshipBot
 {
-    public enum DefensiveStrategy { Diversion, Mixed, Edge, Avoid, Shield, SemiRandom, Uniform }
+    public enum DefensiveStrategy { Mixed, Shield, Diversion,  Edge, Avoid,  SemiRandom, Uniform, Drift }
     public class DefensiveController
     {
         

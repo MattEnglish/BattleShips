@@ -10,7 +10,7 @@ namespace BattleshipBot
     {
         private int[,] enemyShotsInOrder = new int[10, 10];
         private int[,] valueOfSpaces = new int[10, 10];
-        private int count = 0;
+        public int count = 0;
 
         public void enemyShot(bool hit, Vector2 position)
         {

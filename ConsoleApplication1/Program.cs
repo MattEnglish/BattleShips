@@ -19,7 +19,7 @@ namespace ConsoleApplication1
             //findnewShipDistribution.Run();
             //findnewShipDistribution.Run2();
             // hmmm.WeightedRandomShipPositonTest();
-            TestLeague.Run();
+            TestLeague.RunShipPos();
         }
 
     }
@@ -44,6 +44,40 @@ namespace ConsoleApplication1
             }
             pugwash.HandleShotResult(a, isShotHit((GridSquare)a));
 
+        }
+
+        public static void RunShipPos()
+        {
+            Pugwash pugwash = new Pugwash();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
+            pugwash.GetShipPositions();
         }
 
         private static bool isShotHit(GridSquare shot)
