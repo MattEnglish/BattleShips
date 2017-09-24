@@ -33,7 +33,8 @@ namespace BattleshipBot
         private DefensiveControllerAdaptive defensiveC = new DefensiveControllerAdaptive();
         private int lastRow;
         private int lastColumn;
-        private EnemyMap enemyMap = new EnemyMap();
+        //private EnemyMap enemyMap = new EnemyMap();
+        private EnemyMap enemyMap = new ForgetfulEnemyMap();
         private EnemyShipRecord enemyShipRecord = new EnemyShipRecord();
         private AdvEnemyShipValueCalc aescv;
         private int matchnumber = 0;
@@ -42,8 +43,9 @@ namespace BattleshipBot
         {
             aescv = new AdvEnemyShipValueCalc();
             targeterC = new TargeterController(this,random, enemyShipRecord,aescv);
-            enemyMap = new EnemyMap();
-            
+            //enemyMap = new EnemyMap();
+            enemyMap = new ForgetfulEnemyMap();
+
         }
 
         public delegate void NewGameHandler(NewGameEventArgs info);
@@ -96,7 +98,7 @@ namespace BattleshipBot
             enemyMap.enemyShot(false, pos);
         }
 
-        public string Name => "Amnesic Pugwash";
+        public string Name => "METestCluster";
 
         
 

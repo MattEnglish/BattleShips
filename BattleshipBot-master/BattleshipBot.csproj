@@ -56,6 +56,7 @@
     <Compile Include="FindNewShip.cs" />
     <Compile Include="LegalShipPositioner.cs" />
     <Compile Include="Maps\FakeMap.cs" />
+    <Compile Include="Maps\ForgetfulEnemyMap.cs" />
     <Compile Include="Maps\Map.cs" />
     <Compile Include="Maps\MapOfEnemyShipsAllTime.cs" />
     <Compile Include="ExtraStuff\MoreUniformConfigs.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Targeters\TargeterUniformLearn.cs" />
     <Compile Include="ExtraStuff\UtilityFunctions.cs" />
     <Compile Include="ExtraStuff\Vector2.cs" />
+    <Compile Include="Targeters\TargeterUniLearnCluster.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

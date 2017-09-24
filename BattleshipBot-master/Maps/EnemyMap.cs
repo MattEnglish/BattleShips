@@ -8,8 +8,8 @@ namespace BattleshipBot
 {
     public class EnemyMap
     {
-        private int[,] enemyShotsInOrder = new int[10, 10];
-        private int[,] valueOfSpaces = new int[10, 10];
+        protected int[,] enemyShotsInOrder = new int[10, 10];
+        protected int[,] valueOfSpaces = new int[10, 10];
         public int count = 0;
 
         public void enemyShot(bool hit, Vector2 position)
@@ -19,11 +19,11 @@ namespace BattleshipBot
             UpdateValueOfSpaces(position);
         }
 
-        private void UpdateValueOfSpaces(Vector2 position)
+        protected virtual void UpdateValueOfSpaces(Vector2 position)
         {
             if (count < 5)
             {
-                valueOfSpaces[position.x, position.y] = valueOfSpaces[position.x, position.y] + 5;//was 5
+                valueOfSpaces[position.x, position.y] = valueOfSpaces[position.x, position.y] + 6;//was 5
             }
             else if (count < 10)
             {
@@ -45,7 +45,7 @@ namespace BattleshipBot
             return valueOfSpaces[position.x, position.y];
         }
 
-        public void newBattle()
+        public virtual void newBattle()
         {
             count = 0;
         }

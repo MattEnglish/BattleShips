@@ -9,7 +9,7 @@ namespace BattleshipBot
     public class TargeterController
     {
         private TargetStrategy targetStrategy;
-        enum TargetStrategy {UniformLearn}
+        enum TargetStrategy {UniformLearn, UniformLearnCluster}
         private Targeter targeter;
         private Map currentMap;
         private Random random;
@@ -37,7 +37,7 @@ namespace BattleshipBot
             {
                 lostStreak = 0;
             }
-            if (lostStreak >= 3)
+            if (lostStreak >= 3 || targetStrategy == TargetStrategy.UniformLearnCluster)
             {
                 ChangeTargetStrategy();
             }
@@ -54,6 +54,11 @@ namespace BattleshipBot
                 targeter = new TargeterUniformLearn(currentMap, random, aesvc);
             }
 
+            if (targetStrategy == TargetStrategy.UniformLearnCluster)
+            {
+                targeter = new TargeterUniLearnCluster(currentMap, random, aesvc, enemyShipRecord);
+            }
+
             /*
             else if (targetStrategy == TargetStrategy.SemiSnipe)
             {
@@ -66,6 +71,7 @@ namespace BattleshipBot
             }
             */
         }
+
 
         public void ChangeTargetStrategy()
         {

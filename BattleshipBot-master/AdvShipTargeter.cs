@@ -85,7 +85,7 @@ namespace BattleshipBot
             { 
                 LegalShipPositioner lp = new LegalShipPositioner(fakeMap, shipLength);
                 var legalPos = lp.getLegalPositions();
-                foreach (Coordinate c in GetCoordinatesThatAreOnSpace(shipLength, shipTarget.GetFirstShotPos()))
+                foreach (Coordinate c in ExtraSpaceInfo.GetCoordinatesThatAreOnSpace(shipLength, shipTarget.GetFirstShotPos()))
                 {
                     if (legalPos[c.GetRow(), c.GetColumn(), c.GetOrientation()])
                     {
@@ -162,23 +162,7 @@ namespace BattleshipBot
             return false;
         }
         */
-        private List<Coordinate> GetCoordinatesThatAreOnSpace(int ShipLength, Vector2 space)
-        {
-            List<Coordinate> coordinates = new List<Coordinate>();
-
-            for (int shipPos = 0; shipPos < ShipLength; shipPos++)
-            {
-                if (space.x - shipPos >= 0)
-                {
-                    coordinates.Add(new Coordinate(space.x - shipPos, space.y, 0));
-                }
-                if (space.y - shipPos >= 0)
-                {
-                    coordinates.Add(new Coordinate(space.x, space.y - shipPos, 1));
-                }
-            }
-            return coordinates;
-        }
+        
 
 
     }
