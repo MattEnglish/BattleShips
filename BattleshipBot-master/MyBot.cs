@@ -98,7 +98,7 @@ namespace BattleshipBot
             enemyMap.enemyShot(false, pos);
         }
 
-        public string Name => "METestCluster";
+        public string Name => "Amnesic Pugwash";
 
         
 
