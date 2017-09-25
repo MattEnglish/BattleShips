@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Battleships.Player.Interface;
+
 
 namespace BattleshipBot
 {
@@ -98,6 +100,30 @@ namespace BattleshipBot
             occupiedSpaces[row, column] = true;
             blockedSpaces[row, column] = true;
         }
+
+        public void addShip(IShipPosition ship) // THIS FUNCTION IS NOT SAFE!!!
+        {
+            var startingSquare = IGridConversions.GridToInts((GridSquare)ship.StartingSquare);
+            var endingSquare = IGridConversions.GridToInts((GridSquare)ship.EndingSquare);
+            int ori;
+            int shipLength;
+            if(startingSquare[0]!= endingSquare[0])
+            {
+                ori = 0;
+                shipLength = endingSquare[0] -startingSquare[0]+1;
+            }
+            else
+            {
+                ori = 1;
+                shipLength = endingSquare[1] - startingSquare[1] + 1;
+            }
+            Coordinate coord = new Coordinate(startingSquare[0], startingSquare[1], ori);
+            addShip(coord, shipLength);
+
+
+
+        }
+
 
         public void addShip(Coordinate startingCoordinate, int shipLength)
         {

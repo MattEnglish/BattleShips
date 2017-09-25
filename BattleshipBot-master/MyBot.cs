@@ -17,6 +17,7 @@ namespace BattleshipBot
             OldMap = oldMap;
             NewMap = newMap;
             WonLastBattle = wonLastBattle;
+
         }
 
     }
@@ -38,8 +39,10 @@ namespace BattleshipBot
         private EnemyShipRecord enemyShipRecord = new EnemyShipRecord();
         private AdvEnemyShipValueCalc aescv;
         private int matchnumber = 0;
+        int numberOfHits = 0;
+        Map myShipMap;
 
-       public Pugwash()
+        public Pugwash()
         {
             aescv = new AdvEnemyShipValueCalc();
             targeterC = new TargeterController(this,random, enemyShipRecord,aescv);
@@ -54,6 +57,7 @@ namespace BattleshipBot
 
         public IEnumerable<IShipPosition> GetShipPositions()
         {
+            numberOfHits = 0;
             matchnumber++;        
             Map newMap = new Map();
             enemyShipRecord.addMap(currentMap);
@@ -65,7 +69,15 @@ namespace BattleshipBot
             lastColumn = 0;                                
             enemyMap.newBattle();
             ShipPositionerControl spc = new ShipPositionerControl(enemyMap);
-            return spc.GetShipPositions(defStrat, random);
+            myShipMap = new Map();
+            
+            var shipPos = spc.GetShipPositions(defStrat, random);
+            foreach (var ship in shipPos)
+            {
+                myShipMap.addShip(ship);
+            }
+            return shipPos;
+            
         }
 
         private static ShipPosition GetShipPosition(char startRow, int startColumn, char endRow, int endColumn)
@@ -88,6 +100,7 @@ namespace BattleshipBot
             var col = square.Column - 1;
             
             currentMap.shotFired(wasHit, row, col);
+            
         }
 
         public void HandleOpponentsShot(IGridSquare square)
@@ -95,10 +108,19 @@ namespace BattleshipBot
             int x = IGridConversions.charToNum(square.Row) - 1;
             int y = square.Column - 1;
             Vector2 pos = new Vector2(x, y);
-            enemyMap.enemyShot(false, pos);
+            enemyMap.enemyShot(false, pos);// THIS LOOKS WRONG WARNING SDFFFFFFFFFFFFFFFFFFFFFFFagrasdasdgeraragragrragrfgdh            
+            if(myShipMap.GetOccupiedSpaces()[x,y])
+            {
+                numberOfHits++;
+            }
+            
+            if(numberOfHits>=16)
+            {
+                throw new Exception();//Throws Tantrum
+            }
         }
 
-        public string Name => "Amnesic Pugwash";
+        public string Name => "Enraged Pugwash (This bot is dishonorable)";
 
         
 
