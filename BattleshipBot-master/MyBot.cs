@@ -70,7 +70,7 @@ namespace BattleshipBot
             enemyMap.newBattle();
             ShipPositionerControl spc = new ShipPositionerControl(enemyMap);
             myShipMap = new Map();
-            
+            numberOfHits = 0;
             var shipPos = spc.GetShipPositions(defStrat, random);
             foreach (var ship in shipPos)
             {
@@ -105,6 +105,7 @@ namespace BattleshipBot
 
         public void HandleOpponentsShot(IGridSquare square)
         {
+            
             int x = IGridConversions.charToNum(square.Row) - 1;
             int y = square.Column - 1;
             Vector2 pos = new Vector2(x, y);
