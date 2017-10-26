@@ -20,7 +20,7 @@ public class ShipTargeter
             this.shipTarget = shipTarget;
         }
 
-        public virtual Vector2 GetNextShot()
+        public virtual Vector2 GetNextShotmusthandleminus1()
         {
             Orientation orientation = shipTarget.GetOrientation();
             

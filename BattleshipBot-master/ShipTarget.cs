@@ -13,6 +13,7 @@ namespace BattleshipBot
         Map map;
         public int numberOfHits = 1;
         public List<Vector2> hitPositions;
+        public bool shipTargetSetAsDestroyed = false;
 
         public ShipTarget(Map map, int row, int column)
         {
@@ -26,6 +27,7 @@ namespace BattleshipBot
 
         public Ship GetCurrentShip()
         {
+           
             if (!this.isDestroyed())
             {
                 return null;
@@ -102,7 +104,12 @@ namespace BattleshipBot
 
         public bool isDestroyed()
         {
-            if(numberOfHits>=map.GetLongestShipLengthNotFound())
+            if (shipTargetSetAsDestroyed)
+            {
+                return true;
+            }
+
+            if (numberOfHits>=map.GetLongestShipLengthNotFound())
             {
                 return true;
             }

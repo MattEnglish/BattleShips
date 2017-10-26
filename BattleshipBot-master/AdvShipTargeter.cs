@@ -23,11 +23,11 @@ namespace BattleshipBot
 
         
        
-        public override Vector2 GetNextShot()
+        public override Vector2 GetNextShotmusthandleminus1()
         {
 
             var ships = GetPossibleShips();
-
+          
 
             double[,] spaceValues = new double[10, 10];
 
@@ -56,7 +56,7 @@ namespace BattleshipBot
                 spaceValues[alreadyHitPos.x, alreadyHitPos.y] = 0;
             }
             double largestSpaceValue = 0;
-            Vector2 bestSpace = new Vector2(0, 0);
+            Vector2 bestSpace = new Vector2(-1,-1);
             for (int row = 0; row < 10; row++)
             {
                 for (int col = 0; col < 10; col++)
@@ -71,6 +71,10 @@ namespace BattleshipBot
                         }
                     }
                 }
+            }
+            if (bestSpace == new Vector2(-1, -1))
+            {
+                shipTarget.shipTargetSetAsDestroyed = true;
             }
             return bestSpace;
 

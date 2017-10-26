@@ -52,11 +52,11 @@ namespace BattleshipBot
                 {
                     shipTarget = new ShipTarget(map, lastShotRow, lastShotColumn);
                     shipTargeter = new ShipTargeter(map, shipTarget);
-                    return shipTargeter.GetNextShot().ToArray();               
+                    return shipTargeter.GetNextShotmusthandleminus1().ToArray();               
                 }
                 return findNewShip();
             }
-            return shipTargeter.GetNextShot().ToArray();
+            return shipTargeter.GetNextShotmusthandleminus1().ToArray();
                 
             
         }

@@ -115,13 +115,15 @@ namespace BattleshipBot
                 numberOfHits++;
             }
             
+            /*
             if(numberOfHits>=16)
             {
                 throw new Exception();//Throws Tantrum
             }
+            */
         }
 
-        public string Name => "Enraged Pugwash (This bot is dishonorable)";
+        public string Name => "Amnesic Pugwash"; //"Enraged Pugwash (This bot is dishonorable)";
 
         
 

@@ -48,11 +48,16 @@ namespace BattleshipBot
                     shipTarget = new ShipTarget(map, lastShotRow, lastShotColumn);
                     shipTargeter = new AdvShipTargeter(map, shipTarget,AESCV,coordValueHolder);
                     //shipTargeter = new ShipTargeter(map, shipTarget);
-                    return shipTargeter.GetNextShot().ToArray();
+                    return shipTargeter.GetNextShotmusthandleminus1().ToArray();
                 }
                 return findNewShip();
             }
-            return shipTargeter.GetNextShot().ToArray();
+            var nextShot = shipTargeter.GetNextShotmusthandleminus1();
+            if(nextShot == new Vector2(-1,-1))
+            {
+                return GetNextTarget(theLastRowShot, theLastColumnShot);
+            }
+            return nextShot.ToArray();
 
 
         }

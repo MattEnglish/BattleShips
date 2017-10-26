@@ -22,9 +22,9 @@ namespace BattleshipBot.Tests
             map.shotFired(false, 1, 4);
             ShipTarget shipTarget = new ShipTarget(map, 0, 4);
             ShipTargeter ST = new ShipTargeter(map, shipTarget);
-            Assert.IsTrue(ST.GetNextShot()==new Vector2(0,5));
+            Assert.IsTrue(ST.GetNextShotmusthandleminus1()==new Vector2(0,5));
             map.shotFired(true, 0, 5);
-            Assert.IsTrue(ST.GetNextShot() == new Vector2(0, 6));
+            Assert.IsTrue(ST.GetNextShotmusthandleminus1() == new Vector2(0, 6));
             map.shotFired(false, 0, 6);
 
         }

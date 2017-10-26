@@ -19,9 +19,50 @@ namespace ConsoleApplication1
             //findnewShipDistribution.Run();
             //findnewShipDistribution.Run2();
             // hmmm.WeightedRandomShipPositonTest();
-            TestLeague.RunShipPos();
+            deleteMe2.Run();
         }
-
+        class deleteMe2
+        {
+            public static void Run()
+            {
+                Map map = new Map();
+                map.addShip(new Coordinate(5, 4, 0), 3);
+                map.addShip(new Coordinate(7, 7, 0), 3);
+                map.shotFired(false, 1, 3);
+                map.shotFired(false, 1, 7);
+                map.shotFired(true, 1, 4);
+                var shipTarget = new ShipTarget(map, 1, 4);
+                var coordValues = new CoordinateValues(map, new AdvEnemyShipValueCalc());
+                var targeter = new AdvShipTargeter(map, shipTarget, new AdvEnemyShipValueCalc(),coordValues);
+                var x = targeter.GetNextShotmusthandleminus1();
+                map.shotFired(false, x.x, x.y);
+                var y = targeter.GetNextShotmusthandleminus1();
+                map.shotFired(false, y.x, y.y);
+                var z = targeter.GetNextShotmusthandleminus1();
+                map.shotFired(true, z.x, z.y);
+                x= targeter.GetNextShotmusthandleminus1();
+            }
+        }
+        class deleteMe
+        {
+            public static void Run()
+            {
+                var map = new Map();
+                map.shotFired(true, 3, 3);
+                var t = new TargeterUniLearnCluster(map, new Random(), new AdvEnemyShipValueCalc(), new EnemyShipRecord());
+                t.GetNextTarget(3, 3);
+                map.shotFired(true, 3, 4);
+                t.GetNextTarget(3, 4);
+                map.shotFired(false, 3, 5);
+                t.GetNextTarget(3, 5);
+                map.shotFired(false, 3, 2);
+                t.GetNextTarget(3, 2);
+                map.shotFired(false, 3, 2);
+                t.GetNextTarget(3, 2);
+                map.shotFired(false, 3, 2);
+                t.GetNextTarget(3, 2);
+            }
+        }
     }
     class TestLeague
     {
@@ -502,12 +543,12 @@ namespace ConsoleApplication1
 
                 for (int i = 0; i < 5; i++)
                 {
-                    int[] T = ST.GetNextShot().ToArray();
+                    int[] T = ST.GetNextShotmusthandleminus1().ToArray();
                     Console.Write(T[0]);
                     Console.Write(",");
                     Console.WriteLine(T[1]);
                 }
-                ST.GetNextShot();
+                ST.GetNextShotmusthandleminus1();
                 System.Diagnostics.Trace.WriteLine(map.GetOccupiedSpaces()[7, 4]);
 
                 for (int i = 0; i < 5; i++)
