@@ -71,6 +71,7 @@
     <Compile Include="ShipTarget.cs" />
     <Compile Include="ShipTargeter.cs" />
     <Compile Include="ExtraStuff\SurroundingSpacescs.cs" />
+    <Compile Include="Targeters\AntiClumpCoordinateValues.cs" />
     <Compile Include="Targeters\CoordinateValues.cs" />
     <Compile Include="Targeters\Targeter.cs" />
     <Compile Include="Targeters\TargeterClusterBomb.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Targeters\TargeterUniformLearn.cs" />
     <Compile Include="ExtraStuff\UtilityFunctions.cs" />
     <Compile Include="ExtraStuff\Vector2.cs" />
+    <Compile Include="Targeters\TargeterUniformLearnAntiClump.cs" />
     <Compile Include="Targeters\TargeterUniLearnCluster.cs" />
   </ItemGroup>
   <ItemGroup>

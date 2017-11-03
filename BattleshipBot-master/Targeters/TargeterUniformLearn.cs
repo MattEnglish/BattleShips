@@ -10,8 +10,8 @@ namespace BattleshipBot
     {
 
         private MoreUniformConfigs MUC;
-        private AdvEnemyShipValueCalc AESCV;
-        private CoordinateValues coordValueHolder;
+        protected AdvEnemyShipValueCalc AESCV;
+        protected CoordinateValues coordValueHolder;
 
 
         public TargeterUniformLearn(Map map, Random random, AdvEnemyShipValueCalc enemyShipCalculatorMem) : base(map, random)
@@ -22,9 +22,12 @@ namespace BattleshipBot
             lastShotColumn = 0;
             lastShotRow = 0;
             MUC = new MoreUniformConfigs();
-            coordValueHolder = new CoordinateValues(map,enemyShipCalculatorMem);
+            createCoordValueHolder();
+        }
 
-
+        protected virtual void createCoordValueHolder()
+        {
+            coordValueHolder = new CoordinateValues(map, AESCV);
         }
 
         public override int[] GetNextTarget(int theLastRowShot, int theLastColumnShot)

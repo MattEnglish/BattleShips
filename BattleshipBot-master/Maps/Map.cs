@@ -290,7 +290,17 @@ namespace BattleshipBot
             return shipLength.CompareTo(s.shipLength);
         }
 
-        
+        public static bool operator ==(Ship ship1, Ship ship2)
+        {
+            return ship1.shipLength == ship2.shipLength && ship1.coordinate == ship2.coordinate;
+        }
+
+        public static bool operator !=(Ship ship1, Ship ship2)
+        {
+            return !(ship1 == ship2);
+        }
+
+
 
     }
 }

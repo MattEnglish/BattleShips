@@ -8,12 +8,12 @@ namespace BattleshipBot
 {
     public class CoordinateValues
     {
-        public double[,,] initalFiveShipCoordValues { get; set; }
-        public double[,,] initalFourShipCoordValues { get; set; }
-        public double[,,] initalThreeShipCoordValues { get; set; }
-        public double[,,] initalTwoShipCoordValues { get; set; }
-        private Map map;
-        private MoreUniformConfigs MUC;
+        protected double[,,] initalFiveShipCoordValues { get; set; }
+        protected double[,,] initalFourShipCoordValues { get; set; }
+        protected double[,,] initalThreeShipCoordValues { get; set; }
+        protected double[,,] initalTwoShipCoordValues { get; set; }
+        protected Map map;
+        protected MoreUniformConfigs MUC;
         private AdvEnemyShipValueCalc AESVC;
 
         public CoordinateValues(Map map, AdvEnemyShipValueCalc aESCV)
@@ -45,7 +45,7 @@ namespace BattleshipBot
 
         }
 
-        public double[,,] GetCoordinateValues(int shipLength)
+        public virtual double[,,] GetCoordinateValues(int shipLength)
         {
             var x = GetInitalShipCoordinateValues(shipLength);
             var y = AESVC.GetShipRecordedValuesRememberThreesAreDoubled(shipLength, map.GetShips().ToList());

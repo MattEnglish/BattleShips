@@ -6,3 +6,12 @@ C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\BattleshipB
 C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\BattleshipBotTest\obj\Debug\BattleshipBotTest.csprojResolveAssemblyReference.cache
 C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\BattleshipBotTest\obj\Debug\BattleshipBotTest.dll
 C:\Users\Matt\Documents\Visual Studio 2015\Projects\Outside Projects\BattleshipBotTest\obj\Debug\BattleshipBotTest.pdb
+C:\Work\Training\BattleShips\BattleshipBotTest\bin\Debug\BattleshipBotTest.dll
+C:\Work\Training\BattleShips\BattleshipBotTest\bin\Debug\BattleshipBotTest.pdb
+C:\Work\Training\BattleShips\BattleshipBotTest\bin\Debug\BattleshipBot.dll
+C:\Work\Training\BattleShips\BattleshipBotTest\bin\Debug\Battleships.Player.Interface.dll
+C:\Work\Training\BattleShips\BattleshipBotTest\bin\Debug\BattleshipBot.pdb
+C:\Work\Training\BattleShips\BattleshipBotTest\obj\Debug\BattleshipBotTest.csprojResolveAssemblyReference.cache
+C:\Work\Training\BattleShips\BattleshipBotTest\obj\Debug\BattleshipBotTest.csproj.CoreCompileInputs.cache
+C:\Work\Training\BattleShips\BattleshipBotTest\obj\Debug\BattleshipBotTest.dll
+C:\Work\Training\BattleShips\BattleshipBotTest\obj\Debug\BattleshipBotTest.pdb

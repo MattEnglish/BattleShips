@@ -15,7 +15,12 @@ namespace BattleshipBot
 
         public double[,,] GetInitalUniformCoordsValueKinda(int shipLength, Map map)
         {
-            
+            return GetInitalUniformCoordsValueKinda(shipLength, map, 200);
+
+        }
+
+        public double[,,] GetInitalUniformCoordsValueKinda(int shipLength, Map map, int iterations)
+        {
             var lP = new LegalShipPositioner(map, shipLength);
             var emptyMapConfigs = lP.GetNumberOfConfigurationWithAShipOnSpaces();
             var emptyMapLegalPos = lP.getLegalPositions();
@@ -38,7 +43,7 @@ namespace BattleshipBot
             var spaceValues = GetSpaceValueSumofCoordValues(coordValues, shipLength);
             for (int i = 0; i < 200; i++)
             {
-                coordValues = GetMoreUniformCoordsValues(shipLength, spaceValues, coordValues,lP);
+                coordValues = GetMoreUniformCoordsValues(shipLength, spaceValues, coordValues, lP);
                 spaceValues = GetSpaceValueSumofCoordValues(coordValues, shipLength);
 
             }

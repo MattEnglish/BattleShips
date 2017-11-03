@@ -9,7 +9,7 @@ namespace BattleshipBot
     public class TargeterController
     {
         private TargetStrategy targetStrategy;
-        enum TargetStrategy {UniformLearn, UniformLearnCluster}
+        enum TargetStrategy {UniformLearn, UniformLearnCluster,UniformAntiClump}
         private Targeter targeter;
         private Map currentMap;
         private Random random;
@@ -49,6 +49,15 @@ namespace BattleshipBot
                 targeter = new TargeterClusterBomb(currentMap, random, enemyShipRecord);
             }
             */
+
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TEMP
+            targetStrategy = TargetStrategy.UniformAntiClump;
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (targetStrategy == TargetStrategy.UniformAntiClump)
+            {
+                targeter = new TargeterUniformLearnAntiClump(currentMap,random,aesvc);
+            }
+
              if (targetStrategy == TargetStrategy.UniformLearn)
             {
                 targeter = new TargeterUniformLearn(currentMap, random, aesvc);

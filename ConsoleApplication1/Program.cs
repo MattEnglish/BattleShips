@@ -19,7 +19,7 @@ namespace ConsoleApplication1
             //findnewShipDistribution.Run();
             //findnewShipDistribution.Run2();
             // hmmm.WeightedRandomShipPositonTest();
-            deleteMe2.Run();
+            hmmm.Run();
         }
         class deleteMe2
         {
@@ -41,6 +41,18 @@ namespace ConsoleApplication1
                 var z = targeter.GetNextShotmusthandleminus1();
                 map.shotFired(true, z.x, z.y);
                 x= targeter.GetNextShotmusthandleminus1();
+            }
+        }
+
+        class hmmm
+        {
+            public static void Run()
+            {
+                var map = new Map();
+                map.addShip(new Coordinate(0,0,0),5);
+                map.addShip(new Coordinate(0,4,0),5);
+                var t = new TargeterUniformLearnAntiClump(map,new Random(),new AdvEnemyShipValueCalc() );
+                t.GetNextTarget(0, 0);
             }
         }
         class deleteMe
