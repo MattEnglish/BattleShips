@@ -31,6 +31,16 @@ namespace BattleshipBot
             return(v1.x == v2.x && v1.y == v2.y);
         }
 
+        public override bool Equals(object obj)
+        {
+            var vector = obj as Vector2;
+            if(obj == null)
+            {
+                return false;
+            }
+            return this==vector;
+        }
+
         public static bool operator !=(Vector2 v1, Vector2 v2)
         {
             return !(v1 == v2);

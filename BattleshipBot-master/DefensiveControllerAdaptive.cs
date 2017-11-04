@@ -12,7 +12,7 @@ namespace BattleshipBot
         private Dictionary<DefensiveStrategy, double> DefensiveStrategyAverages;
         private double defensiveStrategyMovingAverage = startingAverage;
         DefensiveStrategy previousDefensiveStrategy;
-        public DefensiveStrategy[] DefensiveStrategiesInUse = new DefensiveStrategy[] { DefensiveStrategy.Mixed, DefensiveStrategy.Uniform, DefensiveStrategy.Shield, DefensiveStrategy.Avoid, DefensiveStrategy.Diversion, DefensiveStrategy.Drift, DefensiveStrategy.Edge };
+        public DefensiveStrategy[] DefensiveStrategiesInUse = new DefensiveStrategy[] { DefensiveStrategy.Mixed, DefensiveStrategy.Uniform, DefensiveStrategy.Shield, DefensiveStrategy.Avoid, DefensiveStrategy.Drift };
 
         public DefensiveControllerAdaptive()
         {

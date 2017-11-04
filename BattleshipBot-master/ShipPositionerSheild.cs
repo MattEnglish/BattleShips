@@ -10,12 +10,16 @@ namespace BattleshipBot
     {
         public List<Ship> GetShipSheildCoordinates(Random r)
         {
+            
             var list = new List<Ship>();
-            list.Add(new Ship(new Coordinate(0, 0, 1), 4));
-            list.Add(new Ship(new Coordinate(0, 5, 0), 3));
-            list.Add(new Ship(new Coordinate(4, 2, 1), 5));
-            list.Add(new Ship(new Coordinate(2, 0, 0), 3));
-            list.Add(new Ship(new Coordinate(2, 2, 1), 2));
+            int rowOffset = getRowOffset(r);
+            int colOffset = getColOffset(r);
+
+            list.Add(new Ship(new Coordinate(0+rowOffset, 0+ colOffset, 1), 4));
+            list.Add(new Ship(new Coordinate(0 + rowOffset, 5+ colOffset, 0), 3));
+            list.Add(new Ship(new Coordinate(4 + rowOffset, 2+ colOffset, 1), 5));
+            list.Add(new Ship(new Coordinate(2 + rowOffset, 0+ colOffset, 0), 3));
+            list.Add(new Ship(new Coordinate(2 + rowOffset, 2+ colOffset, 1), 2));
             int rand = r.Next(0, 8);
             if (rand > 3)
             {
@@ -54,5 +58,39 @@ namespace BattleshipBot
 
             return list;
         }
+        private int getRowOffset(Random r)
+        {
+            var rand = r.Next(0, 3);
+            if (rand % 3 == 0)
+            {
+                return 0;
+            }
+            if (rand % 3 == 1)
+            {
+                return 5;
+            }
+
+            return r.Next(1, 5);
+
+        }
+
+        private int getColOffset(Random r)
+        {
+            var rand = r.Next(0, 3);
+            if (rand % 3 == 0)
+            {
+                return 0;
+            }
+            if (rand % 3 == 1)
+            {
+                return 3;
+            }
+
+            return r.Next(1, 3);
+
+        }
+
     }
+
+    
 }

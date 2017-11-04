@@ -73,6 +73,7 @@
     <Compile Include="ExtraStuff\SurroundingSpacescs.cs" />
     <Compile Include="Targeters\AntiClumpCoordinateValues.cs" />
     <Compile Include="Targeters\CoordinateValues.cs" />
+    <Compile Include="Targeters\ProhetService.cs" />
     <Compile Include="Targeters\Targeter.cs" />
     <Compile Include="Targeters\TargeterClusterBomb.cs" />
     <Compile Include="Targeters\TargeterController.cs" />

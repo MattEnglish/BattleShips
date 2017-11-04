@@ -67,7 +67,7 @@ namespace BattleshipBot
 
         public override int[] findNewShip()
         {
-
+            
             var spaceValues = GetAllSpaceValues();
 
             int[] target = new int[2] { 0, 0 };
@@ -86,6 +86,10 @@ namespace BattleshipBot
                 }
             }
             return target;
+            /*
+            ProhetService ps = new ProhetService(coordValueHolder);
+            return ps.FindNewShipProphet(map, MUC);
+            */
         }
 
 
@@ -108,7 +112,8 @@ namespace BattleshipBot
             return spaceValues;
         }
 
-        
+
+
         /*
         public override int[] findNewShipM(int shipLength)
         {

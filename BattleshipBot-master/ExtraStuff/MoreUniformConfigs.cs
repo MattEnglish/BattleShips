@@ -151,7 +151,7 @@ namespace BattleshipBot
 
         }
 
-        private double GetAverageNon0ValueOfArray(double[,]array)
+        public double GetAverageNon0ValueOfArray(double[,]array)
         {
             double sum = 0;
             int numberOfZeros = 0;

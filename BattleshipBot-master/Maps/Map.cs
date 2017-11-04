@@ -28,11 +28,31 @@ namespace BattleshipBot
             ships = new List<Ship>();
         }
 
-
+        public Map CreateCopy()
+        {
+            Map mapCopy = new Map();
+            for (int row = 0; row < 10; row++)
+            {
+                for (int col = 0; col < 10; col++)
+                {
+                    mapCopy.dangerouslySetHitSpace(row, col, hitSpaces[row, col]);
+                    foreach (Ship ship in ships)
+                    {
+                        mapCopy.addShip(ship.coordinate, ship.shipLength);
+                    }
+                }
+            }
+            return mapCopy;
+        }
 
         public Ship[] GetShips()
         {
             return ships.ToArray();
+        }
+
+        public void dangerouslySetHitSpace(int row, int column, int hit)
+        {
+            hitSpaces[row, column] = hit;
         }
 
         public int GetHitSpace(int row, int column)
