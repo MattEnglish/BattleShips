@@ -146,7 +146,7 @@ namespace BattleshipBot
 
         }
         
-        public Coordinate placeShipRandomlyUniformly(int shipLength, Random r)
+        public Coordinate placeShipRandomlyUniformly(int shipLength, Random r, CoordinateValues initalCoordValuesOnly)
         {
             LegalShipPositioner LSP = new LegalShipPositioner(map, shipLength);
             var legalPos = LSP.getLegalPositions();

@@ -25,8 +25,6 @@ namespace BattleshipBot
     //To Do add Constructor, this first repair Targeting lol, NewGame Subscribe!!!.
     public class Pugwash : IBattleshipsBot
     {
-        
-        
         private Map currentMap = new Map();
         private Random random = new Random();
         private TargeterController targeterC;
@@ -42,13 +40,16 @@ namespace BattleshipBot
         int numberOfHits = 0;
         Map myShipMap;
 
+        CoordinateValues initalCoordValuesOnly;
+
         public Pugwash()
         {
             aescv = new AdvEnemyShipValueCalc();
-            targeterC = new TargeterController(this,random, enemyShipRecord,aescv);
+            initalCoordValuesOnly = new CoordinateValues(new Map(), aescv);
+            targeterC = new TargeterController(this,random, enemyShipRecord,aescv,initalCoordValuesOnly);
             //enemyMap = new EnemyMap();
             enemyMap = new ForgetfulEnemyMap();
-
+            
         }
 
         public delegate void NewGameHandler(NewGameEventArgs info);
@@ -71,7 +72,7 @@ namespace BattleshipBot
             ShipPositionerControl spc = new ShipPositionerControl(enemyMap);
             myShipMap = new Map();
             numberOfHits = 0;
-            var shipPos = spc.GetShipPositions(defStrat, random);
+            var shipPos = spc.GetShipPositions(defStrat, random, initalCoordValuesOnly);
             foreach (var ship in shipPos)
             {
                 myShipMap.addShip(ship);
@@ -123,7 +124,7 @@ namespace BattleshipBot
             */
         }
 
-        public string Name => "Suspicious Pugwash"; //"Enraged Pugwash (This bot is dishonorable)";
+        public string Name => "Eco Suspicious Pugwash"; //"Enraged Pugwash (This bot is dishonorable)";
 
         
 

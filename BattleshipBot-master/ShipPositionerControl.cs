@@ -24,7 +24,7 @@ namespace BattleshipBot
 
 
         Random r = new Random();
-        public IEnumerable<IShipPosition> GetShipPositions(DefensiveStrategy defensiveStrategy, Random r)
+        public IEnumerable<IShipPosition> GetShipPositions(DefensiveStrategy defensiveStrategy, Random r, CoordinateValues initalCoordValuesOnly)
         {
             if (defensiveStrategy == DefensiveStrategy.SemiRandom)
             {
@@ -103,7 +103,7 @@ namespace BattleshipBot
             {
                 shipPositions.Add(GetShipOnEdge(5));
                 shipPositions.Add(GetShipOnEdge(4));
-                shipPositions.Add(GetShipsToBeUniformish(3));
+                shipPositions.Add(GetShipsToBeUniformish(3, initalCoordValuesOnly));
                 shipPositions.Add(GetShipsToAvoidShotsPosition(3));
                 shipPositions.Add(GetShipsToAvoidShotsPosition(2));
             }
@@ -124,11 +124,11 @@ namespace BattleshipBot
             }
             else if (defensiveStrategy == DefensiveStrategy.Uniform)
             {
-                shipPositions.Add(GetShipsToBeUniformish(5));
-                shipPositions.Add(GetShipsToBeUniformish(4));
-                shipPositions.Add(GetShipsToBeUniformish(3));
-                shipPositions.Add(GetShipsToBeUniformish(3));
-                shipPositions.Add(GetShipsToBeUniformish(2));
+                shipPositions.Add(GetShipsToBeUniformish(5, initalCoordValuesOnly));
+                shipPositions.Add(GetShipsToBeUniformish(4, initalCoordValuesOnly));
+                shipPositions.Add(GetShipsToBeUniformish(3, initalCoordValuesOnly));
+                shipPositions.Add(GetShipsToBeUniformish(3, initalCoordValuesOnly));
+                shipPositions.Add(GetShipsToBeUniformish(2, initalCoordValuesOnly));
             }
 
             else if(defensiveStrategy == DefensiveStrategy.Drift)
@@ -167,9 +167,9 @@ namespace BattleshipBot
             return CoordinateToShipPosition(c, shipLength);
         }
         
-        private ShipPosition GetShipsToBeUniformish(int shipLength)
+        private ShipPosition GetShipsToBeUniformish(int shipLength, CoordinateValues initalCoordValuesOnly)
         {
-            Coordinate c = SP.placeShipRandomlyUniformly(shipLength,r);
+            Coordinate c = SP.placeShipRandomlyUniformly(shipLength,r, initalCoordValuesOnly);
             return CoordinateToShipPosition(c,shipLength);
         }
 

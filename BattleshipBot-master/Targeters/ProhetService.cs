@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace BattleshipBot
 {
-    public class ProhetService
+    public class ProphetService
     {
         Map map;
         MoreUniformConfigs MUC;
         CoordinateValues coordValueHolder;
         AdvEnemyShipValueCalc AESCV;
 
-        public ProhetService(CoordinateValues coordValues)
+        public ProphetService(CoordinateValues coordValues)
         {
             coordValueHolder = coordValues;
         }

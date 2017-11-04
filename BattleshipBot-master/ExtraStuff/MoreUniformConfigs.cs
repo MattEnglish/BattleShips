@@ -41,7 +41,7 @@ namespace BattleshipBot
             }
             coordValues = NormalizedArray(coordValues);
             var spaceValues = GetSpaceValueSumofCoordValues(coordValues, shipLength);
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 100; i++)
             {
                 coordValues = GetMoreUniformCoordsValues(shipLength, spaceValues, coordValues, lP);
                 spaceValues = GetSpaceValueSumofCoordValues(coordValues, shipLength);

@@ -8,15 +8,15 @@ namespace BattleshipBot
 {
     public class TargeterUniformLearnAntiClump : TargeterUniformLearn
     {
-        public TargeterUniformLearnAntiClump(Map map, Random random, AdvEnemyShipValueCalc enemyShipCalculatorMem) :
-            base(map, random, enemyShipCalculatorMem)
+        public TargeterUniformLearnAntiClump(Map map, Random random, AdvEnemyShipValueCalc enemyShipCalculatorMem, CoordinateValues initalCoordinateValuesOnly) :
+            base(map, random, enemyShipCalculatorMem, initalCoordinateValuesOnly)
         {
             
         }
 
-        protected override void createCoordValueHolder()
+        protected override void createCoordValueHolder(CoordinateValues initalCoordinateValueOnly)
         {
-            base.coordValueHolder = new AntiClumpCoordinateValues(base.map,base.AESCV);
+            base.coordValueHolder = new AntiClumpCoordinateValues(base.map,base.AESCV,initalCoordinateValueOnly);
         }
     }
 }

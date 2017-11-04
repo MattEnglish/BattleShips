@@ -27,6 +27,17 @@ namespace BattleshipBot
             this.AESVC = aESCV;
         }
 
+        public CoordinateValues(Map map, AdvEnemyShipValueCalc aESCV, CoordinateValues coordValues)
+        {
+            this.map = map;
+            MUC = new MoreUniformConfigs();
+            initalFiveShipCoordValues = coordValues.GetCoordinateValues(5);
+            initalFourShipCoordValues = coordValues.GetCoordinateValues(4);
+            initalThreeShipCoordValues = coordValues.GetCoordinateValues(3);
+            initalTwoShipCoordValues = coordValues.GetCoordinateValues(2);
+            this.AESVC = aESCV;
+        }
+
         public double[,,] GetInitalShipCoordinateValues(int shipLength)
         {
             switch (shipLength)

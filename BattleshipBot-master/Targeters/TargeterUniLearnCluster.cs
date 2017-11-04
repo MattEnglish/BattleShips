@@ -15,7 +15,7 @@ namespace BattleshipBot
         Vector2 clusterBombOrigin;
         EnemyShipRecord enemyShipRecord;
 
-        public TargeterUniLearnCluster(Map map, Random random, AdvEnemyShipValueCalc aesvc, EnemyShipRecord enemyShipRecord) : base(map, random, aesvc)
+        public TargeterUniLearnCluster(Map map, Random random, AdvEnemyShipValueCalc aesvc, EnemyShipRecord enemyShipRecord, CoordinateValues initalCoordValuesOnly) : base(map, random, aesvc, initalCoordValuesOnly)
         {
             base.map = map;
             this.random = random;

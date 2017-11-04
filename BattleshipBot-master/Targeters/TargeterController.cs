@@ -20,13 +20,15 @@ namespace BattleshipBot
         private double TargetAntiClumpUniformLearnAverage = 30;
         private double TargetUniformLearnAverage = 30;
         int Counter = 0;
+        private CoordinateValues initalCoordinateValuesOnly;
 
-        public TargeterController(Pugwash pugwash, Random random, EnemyShipRecord enemyShipRecord, AdvEnemyShipValueCalc aesvc)
+        public TargeterController(Pugwash pugwash, Random random, EnemyShipRecord enemyShipRecord, AdvEnemyShipValueCalc aesvc, CoordinateValues initalCoordinateValuesOnly)
         {
             this.random = random;
             pugwash.newGame += new Pugwash.NewGameHandler(NewGame);
             this.enemyShipRecord = enemyShipRecord;
             this.aesvc = aesvc;
+            this.initalCoordinateValuesOnly = initalCoordinateValuesOnly;
         }
 
 
@@ -85,17 +87,17 @@ namespace BattleshipBot
 
             if (targetStrategy == TargetStrategy.UniformAntiClump)
             {
-                targeter = new TargeterUniformLearnAntiClump(currentMap, random, aesvc);
+                targeter = new TargeterUniformLearnAntiClump(currentMap, random, aesvc, initalCoordinateValuesOnly);
             }
 
             if (targetStrategy == TargetStrategy.UniformLearn)
             {
-                targeter = new TargeterUniformLearn(currentMap, random, aesvc);
+                targeter = new TargeterUniformLearn(currentMap, random, aesvc, initalCoordinateValuesOnly);
             }
 
             if (targetStrategy == TargetStrategy.UniformLearnCluster)
             {
-                targeter = new TargeterUniLearnCluster(currentMap, random, aesvc, enemyShipRecord);
+                targeter = new TargeterUniLearnCluster(currentMap, random, aesvc, enemyShipRecord, initalCoordinateValuesOnly);
             }
 
         }
