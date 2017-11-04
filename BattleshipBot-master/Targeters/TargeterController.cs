@@ -16,6 +16,10 @@ namespace BattleshipBot
         private EnemyShipRecord enemyShipRecord;
         private int lostStreak = -1;
         private AdvEnemyShipValueCalc aesvc;
+        private int counter = 0;
+        private double TargetAntiClumpUniformLearnAverage = 30;
+        private double TargetUniformLearnAverage = 30;
+        int Counter = 0;
 
         public TargeterController(Pugwash pugwash, Random random, EnemyShipRecord enemyShipRecord, AdvEnemyShipValueCalc aesvc)
         {
@@ -28,37 +32,63 @@ namespace BattleshipBot
 
         public void NewGame(NewGameEventArgs info)
         {
-            
-            if (!info.WonLastBattle)
+            /*
+            RecordAverages(info);
+            counter++;
+            if(counter <= 10)
             {
-                lostStreak++;
+                targetStrategy = counter % 2 == 0 ? TargetStrategy.UniformLearn : TargetStrategy.UniformAntiClump; 
             }
             else
             {
-                lostStreak = 0;
-            }
-            if (lostStreak >= 3 || targetStrategy == TargetStrategy.UniformLearnCluster)
-            {
-                ChangeTargetStrategy();
-            }
-
-            currentMap = info.NewMap;
-            /*
-            if (targetStrategy == TargetStrategy.ClusterBomb)
-            {
-                targeter = new TargeterClusterBomb(currentMap, random, enemyShipRecord);
+                targetStrategy = TargetUniformLearnAverage > TargetAntiClumpUniformLearnAverage ? TargetStrategy.UniformAntiClump : TargetStrategy.UniformLearn;
             }
             */
-
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TEMP
             targetStrategy = TargetStrategy.UniformAntiClump;
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            currentMap = info.NewMap;
+            SelectTargeter();
+
+            
+
+            
+
+        }
+
+        public void RecordAverages(NewGameEventArgs info)
+        {
+            if (info.WonLastBattle)
+            {
+                if (targetStrategy == TargetStrategy.UniformLearn)
+                {
+                    TargetUniformLearnAverage = TargetUniformLearnAverage * 0.75d + 0.25d * (info.numberOfEnemyShots + 1);
+                }
+                else
+                {
+                    TargetAntiClumpUniformLearnAverage = TargetAntiClumpUniformLearnAverage * 0.75d + 0.25d * (info.numberOfEnemyShots + 1);
+                }
+            }
+            if (!info.WonLastBattle)
+            {
+                if (targetStrategy == TargetStrategy.UniformLearn && info.numberOfEnemyShots > TargetUniformLearnAverage)
+                {
+                    TargetUniformLearnAverage = TargetUniformLearnAverage * 0.75d + 0.2d * (info.numberOfEnemyShots + 1);
+                }
+                else if (targetStrategy == TargetStrategy.UniformAntiClump && info.numberOfEnemyShots > TargetAntiClumpUniformLearnAverage)
+                {
+                    TargetAntiClumpUniformLearnAverage = TargetAntiClumpUniformLearnAverage * 0.75d + 0.2d * (info.numberOfEnemyShots + 1);
+                }
+            }
+        }
+
+        private void SelectTargeter()
+        {
+
             if (targetStrategy == TargetStrategy.UniformAntiClump)
             {
-                targeter = new TargeterUniformLearnAntiClump(currentMap,random,aesvc);
+                targeter = new TargeterUniformLearnAntiClump(currentMap, random, aesvc);
             }
 
-             if (targetStrategy == TargetStrategy.UniformLearn)
+            if (targetStrategy == TargetStrategy.UniformLearn)
             {
                 targeter = new TargeterUniformLearn(currentMap, random, aesvc);
             }
@@ -68,20 +98,7 @@ namespace BattleshipBot
                 targeter = new TargeterUniLearnCluster(currentMap, random, aesvc, enemyShipRecord);
             }
 
-            /*
-            else if (targetStrategy == TargetStrategy.SemiSnipe)
-            {
-                targeter = new TargeterSemiSnipe(currentMap, random, enemyShipRecord);
-            }
-            
-            else
-            {
-                targeter = new TargeterUniform(currentMap, random);
-            }
-            */
         }
-
-
         public void ChangeTargetStrategy()
         {
 

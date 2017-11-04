@@ -24,6 +24,15 @@ namespace BattleshipBot
             if (count < 5)
             {
                 valueOfSpaces[position.x, position.y] = valueOfSpaces[position.x, position.y] + 6;//was 5
+                /*
+                 * valueOfSpaces[position.x, position.y] = valueOfSpaces[9-position.x, position.y] + 2;
+                valueOfSpaces[position.x, position.y] = valueOfSpaces[position.x, 9-position.y] + 2;
+                valueOfSpaces[position.x, position.y] = valueOfSpaces[9-position.x, 9-position.y] + 2;
+                valueOfSpaces[position.x, position.y] = valueOfSpaces[position.y, position.x] + 2;
+                valueOfSpaces[position.x, position.y] = valueOfSpaces[9 - position.y, position.x] + 2;
+                valueOfSpaces[position.x, position.y] = valueOfSpaces[position.y, 9 - position.x] + 2;
+                valueOfSpaces[position.x, position.y] = valueOfSpaces[9 - position.y, 9 - position.x] + 2;
+                 */
             }
             else if (count < 10)
             {

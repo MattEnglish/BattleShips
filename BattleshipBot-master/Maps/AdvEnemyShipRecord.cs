@@ -9,10 +9,61 @@ namespace BattleshipBot
     public class CoordinateCovariance// TO Do add symmetry stuff. add memory for misses?
     {
         private List<List<Ship>> previousShipConfigs = new List<List<Ship>>();
+        private List<List<Ship>> previousShipConfigsSymmetries = new List<List<Ship>>();
 
         public void AddNewConfig(List<Ship> newConfig)
         {
             previousShipConfigs.Add(newConfig);
+            AddPreviousShipConfigSymmetries(newConfig);    
+        }
+
+        private void AddPreviousShipConfigSymmetries(List<Ship> newConfig)
+        {
+            if(newConfig.Count == 0)
+            {
+                return;
+            }
+            var newConfigSymmetries = new List<List<Ship>>();
+            foreach (Ship ship in newConfig)
+            {
+                newConfigSymmetries.Add(UtilityFunctions.GetAllShipSymmetries(ship));
+            }
+            for (int i = 0; i < newConfigSymmetries[0].Count; i++)
+            {
+                var aSymmetricConfig = new List<Ship>();
+                foreach (var shipSymmetires in newConfigSymmetries)
+                {
+                    aSymmetricConfig.Add(shipSymmetires[i]);
+                }
+                previousShipConfigsSymmetries.Add(aSymmetricConfig);
+            }
+        }
+
+        public double[,,] GetNumBlahAndSymmetries(List<Ship> currentConfig, int shipLengthOfplaceholder)
+        {
+            var x = new double[10, 10, 2];
+            foreach (var ship in currentConfig)
+            {
+                foreach (var shipList in previousShipConfigsSymmetries)
+                {
+                    foreach (var ship2 in shipList)
+                    {
+                        if (ship2.shipLength == ship.shipLength && ship.coordinate == ship2.coordinate)
+                        {
+                            foreach (var ship3 in shipList)
+                            {
+                                if (ship3.shipLength == shipLengthOfplaceholder)
+                                {
+                                    var coord = ship3.coordinate;
+                                    x[coord.GetRow(), coord.GetColumn(), coord.GetOrientation()] += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return x;
         }
 
         public double[,,] GetNumberOfTimesShipHasBeenInAConfiguarationWithAsWellAsAShipInCurrentConfigForEachShipinCurrentConfigBLAH(List<Ship> currentConfig, int shipLengthOfplaceholder)
@@ -55,6 +106,7 @@ namespace BattleshipBot
         private const double shipDataPointValue = 0.01;
         private const double shipSymmetryDataPointValue = 0.002;
         private const double shipCoDataPointValue = 0.05;
+        private const double shipCoSymmDataPointValue = 0.005;
         CoordinateCovariance cc;
 
         public double[,,] FiveShipRecordedValues { get; private set; }
@@ -257,6 +309,7 @@ namespace BattleshipBot
 
         public double[,,] GetShipRecordedValuesRememberThreesAreDoubled(int shipLength, List<Ship> currentShips)
         {
+            var w = cc.GetNumBlahAndSymmetries(currentShips, shipLength);
             var x = cc.GetNumberOfTimesShipHasBeenInAConfiguarationWithAsWellAsAShipInCurrentConfigForEachShipinCurrentConfigBLAH(currentShips, shipLength);
             var y = GetShipRecordedValuesRememberThreesAreDoubled(shipLength);
             var z = new double[10, 10, 2];
@@ -266,7 +319,7 @@ namespace BattleshipBot
                 {
                     for (int ori = 0; ori < 2; ori++)
                     {
-                        z[row, col, ori] = shipCoDataPointValue * x[row, col, ori] +  y[row, col, ori];
+                        z[row, col, ori] = shipCoDataPointValue * x[row, col, ori] +  y[row, col, ori] + shipCoSymmDataPointValue* w[row,col,ori];
                     }
                 }
 

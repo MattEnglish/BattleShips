@@ -123,7 +123,7 @@ namespace BattleshipBot
             */
         }
 
-        public string Name => "Amnesic Pugwash"; //"Enraged Pugwash (This bot is dishonorable)";
+        public string Name => "COSYMMETRY Suspicious Pugwash"; //"Enraged Pugwash (This bot is dishonorable)";
 
         
 
