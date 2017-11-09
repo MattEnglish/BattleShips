@@ -9,23 +9,27 @@ namespace BattleshipBot
     public class ProphetService
     {
         Map map;
-        MoreUniformConfigs MUC;
+        MoreUniformConfigs MUC = new MoreUniformConfigs();
         CoordinateValues coordValueHolder;
-        AdvEnemyShipValueCalc AESCV;
+        AdvEnemyShipValueCalc AESVC;
+        Dictionary<int, double[,,]> coordValuesAfterAESCV = new Dictionary<int, double[,,]>();
+        double[,] originalSpaceValues;
 
-        public ProphetService(CoordinateValues coordValues)
+        public ProphetService(CoordinateValues coordValues, AdvEnemyShipValueCalc aesvc, Map map)
         {
             coordValueHolder = coordValues;
+            AESVC = aesvc;
+            this.map = map;
         }
 
-        private double[,] GetAllSpaceValues(Map copyOfMap)
+        private double[,] GetAllSpaceValues()
         {
 
             var spaceValues = new double[10, 10];
 
-            foreach (int unfoundShipLength in copyOfMap.GetUnfoundShipsLengths())
+            foreach (int unfoundShipLength in map.GetUnfoundShipsLengths())
             {
-                var shipLengthSpaceValue = MUC.GetSpaceValueSumofCoordValuesGivenLegalPos(coordValueHolder.GetCoordinateValues(unfoundShipLength), unfoundShipLength, copyOfMap);
+                var shipLengthSpaceValue = MUC.GetSpaceValueSumofCoordValuesGivenLegalPos(coordValueHolder.GetCoordinateValues(unfoundShipLength), unfoundShipLength, map);
                 for (int row = 0; row < 10; row++)
                 {
                     for (int col = 0; col < 10; col++)
@@ -38,29 +42,81 @@ namespace BattleshipBot
             return spaceValues;
         }
 
-        public int[] FindNewShipProphet(Map map, MoreUniformConfigs MUC)
+        private void createCoordValues()
         {
+            for (int shipLength = 2; shipLength < 6; shipLength++)
+            {
+                var foundShips = map.GetShips().ToList();
+                coordValuesAfterAESCV.Add(shipLength, AESVC.GetShipRecordedValuesRememberThreesAreDoubled(shipLength, foundShips));
+            }
+        }
+
+        private double [,] AlterSpaceValues(double[,] spaceValues, Vector2 missPoss, List<Vector2>otherMisses)
+        {
+            foreach (var unfoundShipLength in map.GetUnfoundShipsLengths())
+            {
+                spaceValues = AlterSpaceValueService.alterSpaceValues(spaceValues, coordValuesAfterAESCV[unfoundShipLength], missPoss, map, otherMisses, unfoundShipLength);
+            }
+            return spaceValues;
+        }
+        public possibleShotSequence findPossibleShotSequence()
+        {
+            createCoordValues();
+            this.MUC = MUC;
+            originalSpaceValues = GetAllSpaceValues();
+            var shotSequences = getNextPossibleShotSequences(null,originalSpaceValues);
+            shotSequences = shotSequences.OrderByDescending(shotSequence => shotSequence.TotalValue()).Take(10).ToList();
+            var nextShotSequences = new List<possibleShotSequence>();
+
+            for (int i = 0; i < 10; i++)
+            {
+                foreach (var seq in shotSequences)
+                {
+                    var newSpaceValues = new double[10, 10];
+                    Array.Copy(originalSpaceValues, newSpaceValues, 100);
+                    newSpaceValues = seq.getNewSpaceValues(map, newSpaceValues, coordValuesAfterAESCV);
+                    var partialNextShotSeq = getNextPossibleShotSequences(seq, newSpaceValues);
+                    nextShotSequences.AddRange(partialNextShotSeq);
+                }
+                shotSequences = nextShotSequences.OrderByDescending(shotSequence => shotSequence.TotalValue()).ToList();
+                removeDuplicates(shotSequences);
+                shotSequences = shotSequences.Take(15).ToList();
+            }
+            return shotSequences[0];
+
+
+        }
+
+
+
+        public int[] FindNewShipProphet(Map map, MoreUniformConfigs MUC)
+        {/*
+            createCoordValues();
             this.map = map;
             this.MUC = MUC;
             var shotSequences = getNextPossibleShotSequences(map, null);
+            originalSpaceValues = GetAllSpaceValues(map);
 
-            shotSequences = shotSequences.OrderByDescending(shotSequence => shotSequence.TotalValue()).Take(5).ToList();
-            for (int i = 0; i < 2; i++)
+            shotSequences = shotSequences.OrderByDescending(shotSequence => shotSequence.TotalValue()).Take(10).ToList();
+            for (int i = 0; i < 10; i++)
             {
                 var nextShotSequences = new List<possibleShotSequence>();
                 foreach (var seq in shotSequences)
                 {
                     var nextMap = map.CreateCopy();
                     recordsMissesOnMap(nextMap, seq);
-                    var partialNextShotSeq = getNextPossibleShotSequences(nextMap, seq).OrderByDescending(shotSequence => shotSequence.TotalValue()).Take(7 - 2 * i);
+                    var partialNextShotSeq = getNextPossibleShotSequences(nextMap, seq).OrderByDescending(shotSequence => shotSequence.TotalValue()).Take(10 - i);
                     nextShotSequences.AddRange(partialNextShotSeq);
                 }
-                shotSequences = nextShotSequences.OrderByDescending(shotSequence => shotSequence.TotalValue()).Take(10).ToList();
+                shotSequences = nextShotSequences.OrderByDescending(shotSequence => shotSequence.TotalValue()).ToList();
                 removeDuplicates(shotSequences);
+                shotSequences = shotSequences.Take(15).ToList();
             }
             var firstShot = shotSequences[0].getFirstShot();
             int[] target = new int[2] { firstShot.x, firstShot.y };
             return target;
+            */
+            return new int[2];
 
         }
 
@@ -109,10 +165,9 @@ namespace BattleshipBot
             }
         }
 
-        private List<possibleShotSequence> getNextPossibleShotSequences(Map mapCopy, possibleShotSequence prevSeq)
+        private List<possibleShotSequence> getNextPossibleShotSequences(possibleShotSequence prevSeq, double[,] spaceValues)
         {
             var shotSequences = new List<possibleShotSequence>();
-            var spaceValues = GetAllSpaceValues(mapCopy);
             //MUC.GetAverageNon0ValueOfArray(spaceValues);
             for (int row = 0; row < 10; row++)
             {
@@ -128,7 +183,7 @@ namespace BattleshipBot
 
     }
 
-    class possibleShotSequence
+    public class possibleShotSequence
     {
         public double ThisShotValue { get; private set; }
         public Vector2 Shot { get; private set; }
@@ -184,6 +239,27 @@ namespace BattleshipBot
             }
             return shots;
         }
+
+        public double[,] getNewSpaceValues(Map map, double[,] originalSpaceValues, Dictionary<int, double[,,]> coordinateValues)
+        {
+            return getNewSpaceValues(map, originalSpaceValues, new List<Vector2>(), coordinateValues);
+        }
+
+        public double[,] getNewSpaceValues(Map map, double[,] spaceValues, List<Vector2> missesLaterInSeq, Dictionary<int, double[,,]> coordinateValues)
+        {
+            for (int i = 2; i <= 5; i++)
+            {
+                spaceValues = AlterSpaceValueService.alterSpaceValues(spaceValues, coordinateValues[i], Shot, map, missesLaterInSeq, i);
+            }
+            missesLaterInSeq.Add(Shot);
+            if (PrevShotSequence != null)
+            {
+                return PrevShotSequence.getNewSpaceValues(map, spaceValues, missesLaterInSeq, coordinateValues);
+            }
+            return spaceValues;
+        }
+       
+
 
     }
 }

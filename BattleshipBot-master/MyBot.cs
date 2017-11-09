@@ -124,7 +124,7 @@ namespace BattleshipBot
             */
         }
 
-        public string Name => "Eco Suspicious Pugwash"; //"Enraged Pugwash (This bot is dishonorable)";
+        public string Name => "Eco Prophet Pugwash v1"; //"Enraged Pugwash (This bot is dishonorable)";
 
         
 

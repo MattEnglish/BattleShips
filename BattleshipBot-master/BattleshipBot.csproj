@@ -46,10 +46,12 @@
     <Compile Include="AdvShipTargeter.cs" />
     <Compile Include="DefenseTestController.cs" />
     <Compile Include="DefensiveControllerAdaptive.cs" />
+    <Compile Include="ExtraStuff\AlterSpaceValueService.cs" />
     <Compile Include="ExtraStuff\Coordinate.cs" />
     <Compile Include="DefensiveController.cs" />
     <Compile Include="ExtraStuff\ExtraArrayStuff.cs" />
     <Compile Include="ExtraStuff\ExtraSpaceInfo.cs" />
+    <Compile Include="ExtraStuff\shipLegal.cs" />
     <Compile Include="Maps\AdvEnemyShipRecord.cs" />
     <Compile Include="Maps\EnemyMap.cs" />
     <Compile Include="Maps\EnemyShipRecord.cs" />

@@ -15,7 +15,7 @@ namespace BattleshipBot
 
         public double[,,] GetInitalUniformCoordsValueKinda(int shipLength, Map map)
         {
-            return GetInitalUniformCoordsValueKinda(shipLength, map, 200);
+            return GetInitalUniformCoordsValueKinda(shipLength, map, 100);
 
         }
 
@@ -41,7 +41,7 @@ namespace BattleshipBot
             }
             coordValues = NormalizedArray(coordValues);
             var spaceValues = GetSpaceValueSumofCoordValues(coordValues, shipLength);
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < iterations; i++)
             {
                 coordValues = GetMoreUniformCoordsValues(shipLength, spaceValues, coordValues, lP);
                 spaceValues = GetSpaceValueSumofCoordValues(coordValues, shipLength);

@@ -85,10 +85,10 @@ namespace BattleshipBot
                 }
             }
             return target;
-            /*
-            ProhetService ps = new ProhetService(coordValueHolder);
-            return ps.FindNewShipProphet(map, MUC);
-            */
+            
+            //ProphetService ps = new ProphetService(coordValueHolder);
+            //return ps.FindNewShipProphet(map, MUC);
+            
         }
 
 
